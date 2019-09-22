@@ -6,7 +6,7 @@
 #    By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/21 15:49:50 by fmasha-h          #+#    #+#              #
-#    Updated: 2019/09/21 16:14:55 by fmasha-h         ###   ########.fr        #
+#    Updated: 2019/09/22 20:03:54 by fmasha-h         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fdf
 
 HEADER = fdf.h
 
-GCC = gcc -Wall -Wextra -Werror
+GCC = gcc -Wall -Wextra -Werror -g
 
 MLX = -L /usr/local/lib/ -lmlx -framework OpenGL -framework Appkit
 
@@ -26,7 +26,8 @@ DIR_SRCS = srcs
 
 DIR_O = obj
 
-SRCS = main.c \
+SRCS = 	main.c \
+		init_new_img.c \
 
 OBJF = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SRCS)))
 
