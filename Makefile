@@ -6,7 +6,7 @@
 #    By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/21 15:49:50 by fmasha-h          #+#    #+#              #
-#    Updated: 2019/09/22 20:03:54 by fmasha-h         ###   ########.fr        #
+#    Updated: 2019/09/24 14:47:11 by fmasha-h         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,9 @@ DIR_O = obj
 
 SRCS = 	main.c \
 		init_new_img.c \
+		bresenham_alg.c \
+		input_processing.c \
+		validation.c \
 
 OBJF = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SRCS)))
 

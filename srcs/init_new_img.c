@@ -6,7 +6,7 @@
 /*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 14:03:42 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/22 14:14:57 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2019/09/24 21:07:44 by fmasha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 t_img	*init_new_img(t_img *new)
 {
 	new->mlx_ptr = NULL;
+	new->num_of_lines = 0;
+	new->dots_num = 0;
 	new->win_ptr = NULL;
 	new->img_ptr = NULL;
 	new->win_width = 1000;
