@@ -6,7 +6,7 @@
 #    By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/21 15:49:50 by fmasha-h          #+#    #+#              #
-#    Updated: 2019/09/24 14:47:11 by fmasha-h         ###   ########.fr        #
+#    Updated: 2019/09/25 17:54:53 by fmasha-h         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS = 	main.c \
 		bresenham_alg.c \
 		input_processing.c \
 		validation.c \
+		calculate_coords.c \
 
 OBJF = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SRCS)))
 
@@ -42,10 +43,10 @@ $(MAKE_LIB):
 $(DIR_O):
 	@mkdir -p obj
 
-$(NAME): $(DIR_O) $(OBJF) $(LIB)
+$(NAME): $(DIR_O) $(OBJF)
 	$(GCC) -I $(HEADER) $(OBJF) $(LIBFT) $(MLX) -o $(NAME)
 
-$(DIR_O)/%.o: $(DIR_SRCS)/%.c
+$(DIR_O)/%.o: $(DIR_SRCS)/%.c $(LIB)
 	$(GCC) -I $(HEADER) -o $@ -c $<
 
 clean:

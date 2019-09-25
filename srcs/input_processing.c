@@ -6,16 +6,33 @@
 /*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:34:14 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/25 14:02:06 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2019/09/25 18:42:37 by fmasha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-// void	add_color(char **buf, t_pix dot)
-// {
-	
-// }
+t_pix	add_color(char *str, t_pix dot)
+{
+	char	**arr;
+	char	*buf;
+	int		i;
+
+	i = 0;
+	arr = ft_strsplit(str, ',');
+	buf = NULL;
+	while (arr[i])
+	{
+		if ((buf = ft_strchr(arr[i], 'x')) != NULL)
+			dot.color = ft_atoi_base(arr[i], 16);
+		else
+			dot.z = ft_atoi(arr[i]);
+		i++;
+	}
+	del_matrix(arr);
+	free(arr);
+	return (dot);
+}
 
 int		add_coords(char *str, t_pix **pxls, int line_num, int dot_index)
 {
@@ -25,19 +42,20 @@ int		add_coords(char *str, t_pix **pxls, int line_num, int dot_index)
 
 	i = 0;
 	j = dot_index;
-	if (!str)
-		return (-1);
 	line = ft_strsplit(str, ' ');
 	while (line[i])
 	{
 		(*pxls)[j].x = i;
 		(*pxls)[j].y = line_num;
-		// if (ft_strchr(line[i], ',') != NULL)
-		// 	add_color(line[i], (*pxls)[j]);
-		// else
+		if ((char*)ft_strchr(line[i], ',') != NULL)
+			(*pxls)[j] = add_color(line[i], (*pxls)[j]);
+		else
+		{
 			(*pxls)[j].z = ft_atoi(line[i]);
+			(*pxls)[j].color = 25343;
+		}
 		i++;
-		j++;		
+		j++;
 	}
 	del_matrix(line);
 	free(line);
@@ -54,8 +72,13 @@ void	read_input(char *str, t_img *img)
 	fd = open(str, O_RDONLY);
 	while (get_next_line(fd, &buf) > 0)
 	{
-		dot_index = add_coords(buf, &img->pxls, img->num_of_lines, dot_index);
-		img->num_of_lines++;
+		if (buf)
+		{
+			dot_index = add_coords(buf, \
+			&img->pxls, img->num_of_lines, dot_index);
+			img->num_of_lines++;
+			free(buf);
+		}
 	}
 	close(fd);
 }
@@ -70,7 +93,10 @@ int		count_input_len(char *str, t_img *img)
 	while (get_next_line(fd, &buf) > 0)
 	{
 		if (validate_line(buf) == 0 && (len = count_words(buf)) > 0)
+		{
 			img->dots_num += len;
+			free(buf);
+		}
 		else
 			return (-1);
 	}
@@ -81,17 +107,12 @@ int		count_input_len(char *str, t_img *img)
 void	input_processing(char *str, t_img *img)
 {
 	if (!img)
-		exit (-1);
-	
+		exit(-1);
 	if (count_input_len(str, img) < 0)
 	{
 		ft_printf("Error\n");
-		exit (-1);
+		exit(-1);
 	}
 	img->pxls = (t_pix*)malloc(sizeof(t_pix) * img->dots_num);
 	read_input(str, img);
-	for (int i = 0; i < img->dots_num; i++)
-	{
-		ft_printf("x - %d, y - %d, z - %d\n", img->pxls[i].x, img->pxls[i].y, img->pxls[i].z);
-	}
 }
