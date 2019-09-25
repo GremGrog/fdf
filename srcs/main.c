@@ -6,7 +6,7 @@
 /*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:07:25 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/24 21:14:39 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2019/09/25 16:51:08 by fmasha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int main(int argc, char **argv)
 
 	if (argc > 1 && argv)
 	{
+		int res = 0;
+		res = ft_atoi_base(argv[1], 16);
+		ft_printf("%d\n", res);
 		img = (t_img*)malloc(sizeof(t_img));
 		img = init_new_img(img);
 		input_processing(argv[1], img);

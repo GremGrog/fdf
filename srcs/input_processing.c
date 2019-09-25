@@ -6,16 +6,16 @@
 /*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:34:14 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/24 21:36:05 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2019/09/25 14:02:06 by fmasha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	add_color(char **buf, t_pix dot)
-{
+// void	add_color(char **buf, t_pix dot)
+// {
 	
-}
+// }
 
 int		add_coords(char *str, t_pix **pxls, int line_num, int dot_index)
 {
@@ -32,9 +32,9 @@ int		add_coords(char *str, t_pix **pxls, int line_num, int dot_index)
 	{
 		(*pxls)[j].x = i;
 		(*pxls)[j].y = line_num;
-		if (ft_strchr(line[i], ',') != NULL)
-			add_color(line[i], (*pxls)[j]);
-		else
+		// if (ft_strchr(line[i], ',') != NULL)
+		// 	add_color(line[i], (*pxls)[j]);
+		// else
 			(*pxls)[j].z = ft_atoi(line[i]);
 		i++;
 		j++;		
@@ -71,7 +71,6 @@ int		count_input_len(char *str, t_img *img)
 	{
 		if (validate_line(buf) == 0 && (len = count_words(buf)) > 0)
 			img->dots_num += len;
-		free(buf);
 		else
 			return (-1);
 	}
