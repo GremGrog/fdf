@@ -6,7 +6,7 @@
 /*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:29:16 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/25 20:00:34 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:16:10 by fmasha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 
 void	bresenham_alg(t_img *img, t_pix d1, t_pix d2)
 {
-	// int p1 = 200 * img->img_width + 300;
-	// int x1 = p1 % img->img_width;
-	// int y1 = p1 / img->img_height;
-	// int p2 = 150 * img->img_width + 0;
-	// int x2 = p2 % img->img_width;
-	// int y2 = p2 / img->img_height;
-	// img->data[p1] = 255 << 16 | 255 << 8 | 255;
-	// img->data[p2] = 255 << 16 | 255 << 8 | 255;
-
 	int	deltaX = abs(d2.x - d1.x);
 	int	deltaY = abs(d2.y - d1.y);
 	int deltaError = (deltaX > deltaY ? deltaX : -deltaY) / 2;
@@ -70,7 +61,7 @@ void	connect_lines(t_img *img)
 	while (i < img->dots_num)
 	{
 		if (i + img->dots_per_line < img->dots_num)
-			bresenham_alg(img, img->pxls[i], img->pxls[i + img->dots_per_line]);
+		bresenham_alg(img, img->pxls[i], img->pxls[i + img->dots_per_line]);
 		i++;
 	}
 }

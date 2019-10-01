@@ -6,7 +6,7 @@
 #    By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/21 15:49:50 by fmasha-h          #+#    #+#              #
-#    Updated: 2019/09/25 17:54:53 by fmasha-h         ###   ########.fr        #
+#    Updated: 2019/10/01 15:47:43 by fmasha-h         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,10 +43,10 @@ $(MAKE_LIB):
 $(DIR_O):
 	@mkdir -p obj
 
-$(NAME): $(DIR_O) $(OBJF)
+$(NAME): $(DIR_O) $(OBJF) $(LIBFT)
 	$(GCC) -I $(HEADER) $(OBJF) $(LIBFT) $(MLX) -o $(NAME)
 
-$(DIR_O)/%.o: $(DIR_SRCS)/%.c $(LIB)
+$(DIR_O)/%.o: $(DIR_SRCS)/%.c 
 	$(GCC) -I $(HEADER) -o $@ -c $<
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 14:46:22 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/24 16:26:59 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2019/09/30 17:12:41 by fmasha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		validate_line(char *line)
 				return (-1);
 			i++;
 		}
-		if (ft_isdigit(line[i]) == 1)
+		if (ft_isdigit(line[i]) == 1 || (line[i] == '-' && ft_isdigit(line[i + 1]) == 1))
 		{
 			i++;
 			if (line[i] == ',')
