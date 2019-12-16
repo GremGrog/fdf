@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_coords.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/25 17:54:13 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/30 17:57:51 by fmasha-h         ###   ########.fr       */
+/*   Created: 2019/12/16 16:19:02 by yquaro            #+#    #+#             */
+/*   Updated: 2019/12/16 16:21:03 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "fdf.h"
 
-void	calculate_coords(t_img *img)
+void	calculate_coords(t_window *window)
 {
 	int	margin_x;
 	int	margin_y;
@@ -28,22 +28,22 @@ void	calculate_coords(t_img *img)
 	// 	ft_printf("Error\n");
 	// 	exit (-1);
 	// }
-	img->dots_per_line = img->dots_num / img->num_of_lines;
-	margin_y = img->img_height / 100 * 35;
-	margin_x = img->img_width / 100 * 35;
-	cube_height = (img->img_height - margin_y * 2) / (img->num_of_lines - 1);
-	cube_width = (img->img_width - margin_x * 2) / (img->dots_per_line - 1);
+	window->map.dots_per_line = window->map.dots_num / window->map.num_of_lines;
+	margin_y = window->mlx->img_height / 100 * 35;
+	margin_x = window->mlx->img_width / 100 * 35;
+	cube_height = (window->mlx->img_height - margin_y * 2) / (window->map.num_of_lines - 1);
+	cube_width = (window->mlx->img_width - margin_x * 2) / (window->map.dots_per_line - 1);
 	start_x = 0 + margin_x;
 	start_y = 0 + margin_y;
 	i = 0;
 	// ft_printf("%d %d\n", margin_x, margin_y);
-	while (i < img->dots_num)
+	while (i < window->map.dots_num)
 	{
 		j = 0;
-		while (j < img->dots_per_line)
+		while (j < window->map.dots_per_line)
 		{
-			img->pxls[i].x = start_x;
-			img->pxls[i].y = start_y;
+			window->pxls[i].x = start_x;
+			window->pxls[i].y = start_y;
 			start_x += cube_width;
 			j++;
 			i++;

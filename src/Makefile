@@ -5,26 +5,29 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/12/16 09:39:06 by yquaro            #+#    #+#              #
-#    Updated: 2019/12/16 10:15:07 by yquaro           ###   ########.fr        #
+#    Created: 2019/12/16 09:46:47 by yquaro            #+#    #+#              #
+#    Updated: 2019/12/16 16:24:33 by yquaro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-include inc/fdf.mk
+include ../inc/fdf.mk
 
-all:
-	@make -C libft/ all
-	@make -C src/ all
-	@make -C obj/ all
+HEADER_H = -I ../inc/
 
-clean:
-	@make -C libft/ clean
-	@make -C src/ clean
-	@make -C obj/ clean
+DIR_O = ../obj
+SOURCES = mlx_initialization.c map_parsing.c calculate_coords.c connect_lines.c
+OBJECTS = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SOURCES)))
 
-fclean:
-	@make -C libft/ fclean
-	@make -C src/ fclean
-	@make -C obj/ fclean
+all: print $(OBJECTS)
 
-re: fclean all
+print:
+	@echo \*\*\* Compiling src
+
+$(DIR_O)/%.o: %.c
+	@$(COMPILING) $< -o $@
+	@echo "Compile " $(notdir $(@:.o=.c))
+
+clean: 
+	@rm -rf $(OBJECTS)
+
+fclean: clean
