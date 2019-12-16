@@ -1,8 +1,8 @@
 *.o
-/.vscode
+.vscode
 .DS_Store
 test.c
 *.a
-/a.out
-/*.dSYM
-/fdf
+a.out
+*.dSYM
+fdf
