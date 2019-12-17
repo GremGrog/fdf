@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 10:29:51 by yquaro            #+#    #+#             */
-/*   Updated: 2019/12/16 16:25:52 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/12/16 19:07:58 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,9 @@ int 				main(int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	window = mlx_initialization(argv);
+	setup_controls(window);
 	calculate_coords(window);
-	isometry(window);
 	connect_lines(window);
-	mlx_put_image_to_window(window->mlx->mlx_ptr, \
-		window->mlx->win_ptr, window->mlx->img_ptr, 0, 0);
 	mlx_loop(window->mlx->mlx_ptr);
 	mlx_delete(&window);
 }

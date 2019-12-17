@@ -6,11 +6,16 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:22:21 by yquaro            #+#    #+#             */
-/*   Updated: 2019/12/16 16:24:13 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/12/16 19:43:29 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void					image_clear(t_window *window)
+{
+	ft_bzero(window->mlx->data, window->mlx->img_width * window->mlx->img_height * (window->mlx->bbp / 8));
+}
 
 static void				bresenham_alg(t_window *window, t_pix d1, t_pix d2)
 {
@@ -46,6 +51,8 @@ void				connect_lines(t_window *window)
 
 	i = 0;
 	j = 0;
+	image_clear(window);
+	isometry(window);
 	while (i < window->map.dots_num)
 	{
 		j = 0;
@@ -64,5 +71,8 @@ void				connect_lines(t_window *window)
 		bresenham_alg(window, window->pxls[i], window->pxls[i + window->map.dots_per_line]);
 		i++;
 	}
+	mlx_put_image_to_window(window->mlx->mlx_ptr, \
+		window->mlx->win_ptr, window->mlx->img_ptr, 0, 0);
+
 }
 

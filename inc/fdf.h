@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 09:40:26 by yquaro            #+#    #+#             */
-/*   Updated: 2019/12/16 16:24:26 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/12/16 19:07:54 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include "../libft/includes/libft.h"
 # include "mlx.h"
 # include <math.h>
+
+# define KEY_ESC 53
+# define KEY_PLUS 12
+# define KEY_MINUS 78
 
 typedef struct  s_pix
 {
@@ -57,8 +61,10 @@ typedef	struct	s_window
 
 void				mlx_delete(t_window **window);
 t_window			*mlx_initialization(char **argv);
+void				setup_controls(t_window *window);
 void				input_processing(char *str, t_window *window);
 void				calculate_coords(t_window *window);
 void				connect_lines(t_window *window);
+void				isometry(t_window *window);
 
 #endif

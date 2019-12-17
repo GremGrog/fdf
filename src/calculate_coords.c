@@ -6,7 +6,7 @@
 /*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:19:02 by yquaro            #+#    #+#             */
-/*   Updated: 2019/12/16 16:21:03 by yquaro           ###   ########.fr       */
+/*   Updated: 2019/12/16 20:03:33 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	calculate_coords(t_window *window)
 	while (i < window->map.dots_num)
 	{
 		j = 0;
-		while (j < window->map.dots_per_line)
+		while (j < window->map.dots_per_line)	
 		{
 			window->pxls[i].x = start_x;
 			window->pxls[i].y = start_y;
