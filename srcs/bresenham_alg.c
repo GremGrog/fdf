@@ -45,23 +45,19 @@ void	connect_lines(t_img *img)
 	int	j;
 
 	i = 0;
-	j = 0;
-	while (i < img->grid_square)
+	while (i < img->grid_height)
 	{
 		j = 0;
 		while (j < img->grid_length)
 		{
-			if (j + 1 < img->grid_length)
-				bresenham_alg(img, img->pxls[i], img->pxls[i + 1]);
+			// horizontal
+			if (j < img->grid_length - 1)
+				bresenham_alg(img, img->pxls[i*img->grid_length + j], img->pxls[(i*img->grid_length + j) + 1]);
+			// vertical
+			if (i < img->grid_height - 1)
+				bresenham_alg(img, img->pxls[i*img->grid_length + j], img->pxls[(i+1)*img->grid_length + j]);
 			j++;
-			i++;
 		}
-	}
-	i = 0;
-	while (i < img->grid_square)
-	{
-		if (i + img->grid_length < img->grid_square)
-			bresenham_alg(img, img->pxls[i], img->pxls[i + img->grid_length]);
 		i++;
 	}
 }

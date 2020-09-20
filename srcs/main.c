@@ -19,6 +19,7 @@ void	calc_iso(t_img *img, t_pix *d)
 {
 	int previous_x;
     int previous_y;
+
 	if (!img)
 		return ;
     previous_x = d->x;
@@ -33,7 +34,6 @@ void	isometry(t_img *img)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (i != img->grid_square)
 	{
 		j = 0;
@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 		img->data = (int*)mlx_get_data_addr(img->img_ptr, &img->bbp, &img->size_line, &img->endian);
 		
 		calculate_coords(img);
-		// isometry(img);
+		isometry(img);
 		connect_lines(img);
 		mlx_put_image_to_window(img->mlx_ptr, img->win_ptr, img->img_ptr, 0, 0);
 		// mlx_hook(img->win_ptr, 2, 0, key_press, img);
