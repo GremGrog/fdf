@@ -27,7 +27,7 @@ DIR_SRCS = srcs
 DIR_O = obj
 
 SRCS = 	main.c \
-		init_new_img.c \
+		init.c \
 		bresenham_alg.c \
 		input_processing.c \
 		validation.c \

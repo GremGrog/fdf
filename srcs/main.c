@@ -15,7 +15,7 @@
 
 #include "../fdf.h"
 
-void	calc_iso(t_img *img, t_pix *d)
+void	calc_iso(t_img *img, t_coord *d)
 {
 	int previous_x;
     int previous_y;
@@ -37,53 +37,74 @@ void	isometry(t_img *img)
 	while (i != img->grid_square)
 	{
 		j = 0;
-		while (j != img->grid_length)
+		while (j != img->grid_width)
 		{
-			calc_iso(img, &img->pxls[i]);
+			calc_iso(img, &img->dot[i]);
 			j++;
 			i++;
 		}
 	}
 } 
 
-// int	key_press(int key, void *param)
-// {
-// 	t_img	*img;
+int	key_press(int key, t_mlx *mlx, t_img *img)
+{
+	int		i;
 
-// 	img = (t_img *)param;
-
-// 	if (key == 126) {
-// 		int i = 0;
-// 		while (i < img->grid_square) {
-// 			int j = 0;
-// 			while (j < img->grid_length) {
-				
-// 			}
-// 		}
-// 	}
-// }
+	if (key == 126) {
+		i = 0;
+		while (i < img->grid_square)
+		{
+			if (img->dot[i].z != 0)
+				img->dot[i].z++;
+			i++;
+		}
+	} else if (key == 125)
+	{
+		i = 0;
+		while (i < img->grid_square)
+		{
+			if (img->dot[i].z != 0)
+			{
+				img->dot[i].z--;
+				if (img->dot[i].z == 0)
+					img->dot[i].z--;
+			}
+			i++;
+		}
+	}
+	ft_bzero(mlx->data, HEIGHT*WIDTH * (mlx->bbp / 8));
+	calculate_coords(img);
+	isometry(img);
+	connect_lines(mlx, img);
+	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
+	return 0;
+}
 
 int main(int argc, char **argv)
 {
 	t_img	*img;
+	t_mlx	*mlx;
 
 	if (argc > 1 && argv)
 	{
-		img = (t_img*)malloc(sizeof(t_img));
-		img = init_new_img(img);
+		img = init_img();
+		// TODO: create terminate
+		// if (img == NULL) {
+		// 	terminate()
+		// }
 		input_processing(argv[1], img);
-		img->mlx_ptr = mlx_init();
-		img->win_ptr = mlx_new_window(img->mlx_ptr, img->win_width, img->win_height, "fdf");
-		img->img_ptr = mlx_new_image (img->mlx_ptr, img->img_width, img->img_height);
 
-		// TODO play with bbp value
-		img->data = (int*)mlx_get_data_addr(img->img_ptr, &img->bbp, &img->size_line, &img->endian);
+		mlx = init_mlx();
+		// TODO: create terminate
+		// if (mlx == NULL) {
+		// 	terminate()
+		// }
 		
 		calculate_coords(img);
 		isometry(img);
-		connect_lines(img);
-		mlx_put_image_to_window(img->mlx_ptr, img->win_ptr, img->img_ptr, 0, 0);
-		// mlx_hook(img->win_ptr, 2, 0, key_press, img);
-		mlx_loop(img->mlx_ptr);
+		connect_lines(mlx, img);
+		mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
+		mlx_hook(mlx->win_ptr, 2, 0, key_press, mlx);
+		mlx_loop(mlx->ptr);
 	}
 }

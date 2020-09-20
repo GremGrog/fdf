@@ -12,7 +12,7 @@
 
 #include "../fdf.h"
 
-t_pix	add_color(char *str, t_pix dot)
+t_coord	add_color(char *str, t_coord dot)
 {
 	char	**arr;
 	char	*buf;
@@ -34,7 +34,7 @@ t_pix	add_color(char *str, t_pix dot)
 	return (dot);
 }
 
-int		add_coords(char *str, t_pix **pxls, int line_num, int dot_index)
+int		add_coords(char *str, t_coord **dot, int line_num, int dot_index)
 {
 	int		i;
 	int		j;
@@ -45,14 +45,14 @@ int		add_coords(char *str, t_pix **pxls, int line_num, int dot_index)
 	line = ft_strsplit(str, ' ');
 	while (line[i])
 	{
-		(*pxls)[j].x = i;
-		(*pxls)[j].y = line_num;
+		(*dot)[j].x = i;
+		(*dot)[j].y = line_num;
 		if ((char*)ft_strchr(line[i], ',') != NULL)
-			(*pxls)[j] = add_color(line[i], (*pxls)[j]);
+			(*dot)[j] = add_color(line[i], (*dot)[j]);
 		else
 		{
-			(*pxls)[j].z = ft_atoi(line[i]);
-			(*pxls)[j].color = 25343;
+			(*dot)[j].z = ft_atoi(line[i]);
+			(*dot)[j].color = 25343;
 		}
 		i++;
 		j++;
@@ -75,7 +75,7 @@ void	read_input(char *str, t_img *img)
 		if (buf)
 		{
 			dot_index = add_coords(buf, \
-			&img->pxls, img->grid_height, dot_index);
+			&img->dot, img->grid_height, dot_index);
 			img->grid_height++;
 			free(buf);
 		}
@@ -113,6 +113,7 @@ void	input_processing(char *str, t_img *img)
 		ft_printf("Error\n");
 		exit(-1);
 	}
-	img->pxls = (t_pix*)malloc(sizeof(t_pix) * img->grid_square);
+	// TODO: protect malloc
+	img->dot = (t_coord*)malloc(sizeof(t_coord) * img->grid_square);
 	read_input(str, img);
 }

@@ -17,42 +17,47 @@
 # include "mlx.h"
 # include <math.h>
 
-typedef struct  s_pix
+# define WIDTH 1500
+# define HEIGHT 1500
+# define WINDOW_NAME "fdf"
+
+typedef struct  s_coord
 {
 	int 	x;
 	int 	y;
 	int 	z;
 	long	color;
-}				t_pix;
+}				t_coord;
 
+// TODO: move to the s_mlx
 typedef	struct	s_img
 {
-	t_pix	*pxls;
-	int		grid_height;
-	int		grid_length;
+	t_coord	*dot;
 	int		grid_square;
-	void	*mlx_ptr;
+	int		grid_height;
+	int		grid_width;
+}					t_img;
+
+typedef struct	s_mlx
+{
+	void	*ptr;
 	void	*win_ptr;
 	void	*img_ptr;
-	int     win_width;
-	int     win_height;
-	int     img_width;
-	int     img_height;
 	int     *data;
 	int     bbp;
 	int     size_line;
 	int     endian;
+}					t_mlx;
 
-}					t_img;
-
-t_img			*init_new_img(t_img *new);
+t_img			*init_img();
+t_mlx			*init_mlx();
 void			input_processing(char *str, t_img *img);
 int				validate_line(char *line);
 
 void			calculate_coords(t_img *img);
-void			bresenham_alg(t_img *img, t_pix d1, t_pix d2);
-void			connect_lines(t_img *img);
+void			bresenham_alg(t_mlx *mlx, t_coord d1, t_coord d2);
+void			connect_lines(t_mlx *mlx, t_img *img);
 
-int				key_press(int key, void *param);
+int				key_press(int key, t_mlx *mlx, t_img *img);
 
 #endif

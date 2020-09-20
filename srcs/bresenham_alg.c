@@ -12,7 +12,7 @@
 
 #include "../fdf.h"
 
-void	bresenham_alg(t_img *img, t_pix d1, t_pix d2)
+void	bresenham_alg(t_mlx *mlx, t_coord d1, t_coord d2)
 {
 	int	deltaX = abs(d2.x - d1.x);
 	int	deltaY = abs(d2.y - d1.y);
@@ -22,7 +22,7 @@ void	bresenham_alg(t_img *img, t_pix d1, t_pix d2)
 	int	y = d1.y;
 	while (1)
 	{
-		img->data[y * img->img_width + x] = 255 << 16 | 97 << 8 | 97;
+		mlx->data[y * WIDTH + x] = 255 << 16 | 97 << 8 | 97;
 		if (x == d2.x && y == d2.y)
 			break ;
 		error = deltaError;
@@ -39,7 +39,7 @@ void	bresenham_alg(t_img *img, t_pix d1, t_pix d2)
 	}
 }
 
-void	connect_lines(t_img *img)
+void	connect_lines(t_mlx *mlx, t_img *img)
 {
 	int	i;
 	int	j;
@@ -48,14 +48,14 @@ void	connect_lines(t_img *img)
 	while (i < img->grid_height)
 	{
 		j = 0;
-		while (j < img->grid_length)
+		while (j < img->grid_width)
 		{
 			// horizontal
-			if (j < img->grid_length - 1)
-				bresenham_alg(img, img->pxls[i*img->grid_length + j], img->pxls[(i*img->grid_length + j) + 1]);
+			if (j < img->grid_width - 1)
+				bresenham_alg(mlx, img->dot[i*img->grid_width + j], img->dot[(i*img->grid_width + j) + 1]);
 			// vertical
 			if (i < img->grid_height - 1)
-				bresenham_alg(img, img->pxls[i*img->grid_length + j], img->pxls[(i+1)*img->grid_length + j]);
+				bresenham_alg(mlx, img->dot[i*img->grid_width + j], img->dot[(i+1)*img->grid_width + j]);
 			j++;
 		}
 		i++;

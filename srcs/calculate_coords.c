@@ -28,11 +28,11 @@ void	calculate_coords(t_img *img)
 	// 	ft_printf("Error\n");
 	// 	exit (-1);
 	// }
-	img->grid_length = img->grid_square / img->grid_height;
-	margin_y = img->img_height / 100 * 35;
-	margin_x = img->img_width / 100 * 35;
-	cube_height = (img->img_height - margin_y * 2) / (img->grid_height - 1);
-	cube_width = (img->img_width - margin_x * 2) / (img->grid_length - 1);
+	img->grid_width = img->grid_square / img->grid_height;
+	margin_y = HEIGHT / 100 * 35;
+	margin_x = WIDTH / 100 * 35;
+	cube_height = (HEIGHT - margin_y * 2) / (img->grid_height - 1);
+	cube_width = (WIDTH - margin_x * 2) / (img->grid_width - 1);
 	start_x = margin_x;
 	start_y = margin_y;
 	i = 0;
@@ -40,10 +40,10 @@ void	calculate_coords(t_img *img)
 	while (i < img->grid_square)
 	{
 		j = 0;
-		while (j < img->grid_length)
+		while (j < img->grid_width)
 		{
-			img->pxls[i].x = start_x;
-			img->pxls[i].y = start_y;
+			img->dot[i].x = start_x;
+			img->dot[i].y = start_y;
 			start_x += cube_width;
 			j++;
 			i++;

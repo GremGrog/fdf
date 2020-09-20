@@ -12,21 +12,34 @@
 
 #include "../fdf.h"
 
-t_img	*init_new_img(t_img *new)
+t_mlx	*init_mlx()
 {
-	new->mlx_ptr = NULL;
-	new->grid_height = 0;
-	new->grid_square = 0;
-	new->grid_length = 0;
-	new->win_ptr = NULL;
-	new->img_ptr = NULL;
-	new->win_width = 1500;
-	new->win_height = 1500;
-	new->img_width = 1500;
-	new->img_height = 1500;
-	new->data = 0;
-	new->bbp = 0;
-	new->size_line = 0;
-	new->endian = 0;
-	return (new);
+	t_mlx	*mlx;
+
+	if (!(mlx = (t_mlx*)malloc(sizeof(t_mlx))))
+		return NULL;
+	mlx->ptr = NULL;
+	mlx->win_ptr = NULL;
+	mlx->img_ptr = NULL;
+	mlx->data = 0;
+	mlx->bbp = 0;
+	mlx->size_line = 0;
+	mlx->endian = 0;
+	mlx->ptr = mlx_init();
+	mlx->win_ptr = mlx_new_window(mlx->ptr, WIDTH, HEIGHT, WINDOW_NAME);
+	mlx->img_ptr = mlx_new_image (mlx->ptr, WIDTH, HEIGHT);
+	mlx->data = (int*)mlx_get_data_addr(mlx->img_ptr, &mlx->bbp, &mlx->size_line, &mlx->endian);
+	return (mlx);
+}
+
+t_img	*init_img()
+{
+	t_img	*img;
+
+	if (!(img = (t_img*)malloc(sizeof(t_img))))
+		return NULL;
+	img->grid_height = 0;
+	img->grid_square = 0;
+	img->grid_width = 0;
+	return (img);
 }
