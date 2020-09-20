@@ -15,9 +15,9 @@
 t_img	*init_new_img(t_img *new)
 {
 	new->mlx_ptr = NULL;
-	new->num_of_lines = 0;
-	new->dots_num = 0;
-	new->dots_per_line = 0;
+	new->grid_height = 0;
+	new->grid_square = 0;
+	new->grid_length = 0;
 	new->win_ptr = NULL;
 	new->img_ptr = NULL;
 	new->win_width = 1500;
@@ -25,8 +25,8 @@ t_img	*init_new_img(t_img *new)
 	new->img_width = 1500;
 	new->img_height = 1500;
 	new->data = 0;
-	new->bbp = 32;
-	new->size_line = 3200;
-	new->endian = 1;
+	new->bbp = 0;
+	new->size_line = 0;
+	new->endian = 0;
 	return (new);
 }

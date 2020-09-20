@@ -28,9 +28,9 @@ typedef struct  s_pix
 typedef	struct	s_img
 {
 	t_pix	*pxls;
-	int		num_of_lines;
-	int		dots_per_line;
-	int		dots_num;
+	int		grid_height;
+	int		grid_length;
+	int		grid_square;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
@@ -52,5 +52,7 @@ int				validate_line(char *line);
 void			calculate_coords(t_img *img);
 void			bresenham_alg(t_img *img, t_pix d1, t_pix d2);
 void			connect_lines(t_img *img);
+
+int				key_press(int key, void *param);
 
 #endif

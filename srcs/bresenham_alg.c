@@ -46,22 +46,22 @@ void	connect_lines(t_img *img)
 
 	i = 0;
 	j = 0;
-	while (i < img->dots_num)
+	while (i < img->grid_square)
 	{
 		j = 0;
-		while (j < img->dots_per_line)
+		while (j < img->grid_length)
 		{
-			if (j + 1 < img->dots_per_line)
+			if (j + 1 < img->grid_length)
 				bresenham_alg(img, img->pxls[i], img->pxls[i + 1]);
 			j++;
 			i++;
 		}
 	}
 	i = 0;
-	while (i < img->dots_num)
+	while (i < img->grid_square)
 	{
-		if (i + img->dots_per_line < img->dots_num)
-		bresenham_alg(img, img->pxls[i], img->pxls[i + img->dots_per_line]);
+		if (i + img->grid_length < img->grid_square)
+			bresenham_alg(img, img->pxls[i], img->pxls[i + img->grid_length]);
 		i++;
 	}
 }

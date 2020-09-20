@@ -75,8 +75,8 @@ void	read_input(char *str, t_img *img)
 		if (buf)
 		{
 			dot_index = add_coords(buf, \
-			&img->pxls, img->num_of_lines, dot_index);
-			img->num_of_lines++;
+			&img->pxls, img->grid_height, dot_index);
+			img->grid_height++;
 			free(buf);
 		}
 	}
@@ -94,7 +94,7 @@ int		count_input_len(char *str, t_img *img)
 	{
 		if (validate_line(buf) == 0 && (len = count_words(buf)) > 0)
 		{
-			img->dots_num += len;
+			img->grid_square += len;
 			free(buf);
 		}
 		else
@@ -113,6 +113,6 @@ void	input_processing(char *str, t_img *img)
 		ft_printf("Error\n");
 		exit(-1);
 	}
-	img->pxls = (t_pix*)malloc(sizeof(t_pix) * img->dots_num);
+	img->pxls = (t_pix*)malloc(sizeof(t_pix) * img->grid_square);
 	read_input(str, img);
 }

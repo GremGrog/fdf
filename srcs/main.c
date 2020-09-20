@@ -1,14 +1,17 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/21 16:07:25 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/10/01 16:16:26 by fmasha-h         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/* 
+
+		TODO
+
+		0. отрефакторить код
+		1. потестить парсер и валидатор
+		2. обработка клавиш:
+			- esc для выхода из программы
+			- клавиши +- для зума (колесико мышки)
+			- клавиши для изменения высоты
+			- стрелки для поворота карты
+			- клавиши для смены цвета + сама смена
+			- смена проекции
+*/
 
 #include "../fdf.h"
 
@@ -31,17 +34,34 @@ void	isometry(t_img *img)
 
 	i = 0;
 	j = 0;
-	while (i != img->dots_num)
+	while (i != img->grid_square)
 	{
 		j = 0;
-		while (j != img->dots_per_line)
+		while (j != img->grid_length)
 		{
 			calc_iso(img, &img->pxls[i]);
 			j++;
 			i++;
 		}
 	}
-}
+} 
+
+// int	key_press(int key, void *param)
+// {
+// 	t_img	*img;
+
+// 	img = (t_img *)param;
+
+// 	if (key == 126) {
+// 		int i = 0;
+// 		while (i < img->grid_square) {
+// 			int j = 0;
+// 			while (j < img->grid_length) {
+				
+// 			}
+// 		}
+// 	}
+// }
 
 int main(int argc, char **argv)
 {
@@ -55,12 +75,15 @@ int main(int argc, char **argv)
 		img->mlx_ptr = mlx_init();
 		img->win_ptr = mlx_new_window(img->mlx_ptr, img->win_width, img->win_height, "fdf");
 		img->img_ptr = mlx_new_image (img->mlx_ptr, img->img_width, img->img_height);
+
+		// TODO play with bbp value
 		img->data = (int*)mlx_get_data_addr(img->img_ptr, &img->bbp, &img->size_line, &img->endian);
+		
 		calculate_coords(img);
-		// connect_lines(img);
-		isometry(img);
+		// isometry(img);
 		connect_lines(img);
 		mlx_put_image_to_window(img->mlx_ptr, img->win_ptr, img->img_ptr, 0, 0);
+		// mlx_hook(img->win_ptr, 2, 0, key_press, img);
 		mlx_loop(img->mlx_ptr);
 	}
 }
