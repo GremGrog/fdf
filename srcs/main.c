@@ -73,6 +73,10 @@ int		key_press(int key, void *param)
 			}
 			i++;
 		}
+	} else if (key == 12)
+	{ // press Q to quit
+		// terminate()
+		exit(1);
 	}
 	ft_bzero(mlx->data, HEIGHT*WIDTH * (mlx->bbp / 8));
 	calculate_coords(mlx->img);
