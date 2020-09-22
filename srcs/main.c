@@ -1,5 +1,4 @@
 /* 
-
 		TODO
 
 		0. отрефакторить код
@@ -13,6 +12,7 @@
 			- смена проекции
 */
 
+// TODO: change to "fdf.h"
 #include "../fdf.h"
 
 void	calc_iso(t_img *img, t_coord *d)
@@ -46,63 +46,58 @@ void	isometry(t_img *img)
 	}
 } 
 
-int	key_press(int key, t_mlx *mlx, t_img *img)
+int		key_press(int key, void *param)
 {
+	t_mlx	*mlx;
 	int		i;
 
+	mlx = (t_mlx *)param;
 	if (key == 126) {
 		i = 0;
-		while (i < img->grid_square)
+		while (i < mlx->img->grid_square)
 		{
-			if (img->dot[i].z != 0)
-				img->dot[i].z++;
+			if (mlx->img->dot[i].z != 0)
+				mlx->img->dot[i].z++;
 			i++;
 		}
 	} else if (key == 125)
 	{
 		i = 0;
-		while (i < img->grid_square)
+		while (i < mlx->img->grid_square)
 		{
-			if (img->dot[i].z != 0)
+			if (mlx->img->dot[i].z != 0)
 			{
-				img->dot[i].z--;
-				if (img->dot[i].z == 0)
-					img->dot[i].z--;
+				mlx->img->dot[i].z--;
+				if (mlx->img->dot[i].z == 0)
+					mlx->img->dot[i].z--;
 			}
 			i++;
 		}
 	}
 	ft_bzero(mlx->data, HEIGHT*WIDTH * (mlx->bbp / 8));
-	calculate_coords(img);
-	isometry(img);
-	connect_lines(mlx, img);
+	calculate_coords(mlx->img);
+	isometry(mlx->img);
+	connect_lines(mlx, mlx->img);
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	return 0;
 }
 
 int main(int argc, char **argv)
 {
-	t_img	*img;
 	t_mlx	*mlx;
 
 	if (argc > 1 && argv)
 	{
-		img = init_img();
+		mlx = init_mlx();
 		// TODO: create terminate
 		// if (img == NULL) {
 		// 	terminate()
 		// }
-		input_processing(argv[1], img);
-
-		mlx = init_mlx();
-		// TODO: create terminate
-		// if (mlx == NULL) {
-		// 	terminate()
-		// }
+		input_processing(argv[1], mlx->img);
 		
-		calculate_coords(img);
-		isometry(img);
-		connect_lines(mlx, img);
+		calculate_coords(mlx->img);
+		isometry(mlx->img);
+		connect_lines(mlx, mlx->img);
 		mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 		mlx_hook(mlx->win_ptr, 2, 0, key_press, mlx);
 		mlx_loop(mlx->ptr);

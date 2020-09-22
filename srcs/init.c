@@ -18,6 +18,8 @@ t_mlx	*init_mlx()
 
 	if (!(mlx = (t_mlx*)malloc(sizeof(t_mlx))))
 		return NULL;
+	if ((mlx->img = init_img()) == NULL)
+		return NULL;
 	mlx->ptr = NULL;
 	mlx->win_ptr = NULL;
 	mlx->img_ptr = NULL;
@@ -41,5 +43,6 @@ t_img	*init_img()
 	img->grid_height = 0;
 	img->grid_square = 0;
 	img->grid_width = 0;
+	img->dot = NULL;
 	return (img);
 }

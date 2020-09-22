@@ -16,7 +16,10 @@ HEADER = fdf.h
 
 GCC = gcc -Wall -Wextra -Werror -g
 
-MLX = -L /usr/local/lib/ -lmlx -framework OpenGL -framework Appkit
+# school macOS
+# MLX = -L /usr/local/lib/ -lmlx -framework OpenGL -framework Appkit
+# home macOS
+MLX = -I /usr/X11/include -g -L /usr/X11/lib -l mlx -framework OpenGL -framework AppKit
 
 MAKE_LIB = make -C libft
 

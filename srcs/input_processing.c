@@ -89,6 +89,7 @@ int		count_input_len(char *str, t_img *img)
 	char	*buf;
 	int		len;
 
+	// TODO: protect open
 	fd = open(str, O_RDONLY);
 	while (get_next_line(fd, &buf) > 0)
 	{
