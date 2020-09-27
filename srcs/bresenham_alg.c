@@ -14,27 +14,36 @@
 
 void	bresenham_alg(t_mlx *mlx, t_coord d1, t_coord d2)
 {
-	int	deltaX = abs(d2.x - d1.x);
-	int	deltaY = abs(d2.y - d1.y);
+	t_coord d1_classical;
+	t_coord d2_classical;
+
+	d1_classical.x = WIDTH / 2 + d1.x;
+	d1_classical.y = HEIGHT / 2 - d1.y;
+
+	d2_classical.x = WIDTH / 2 + d2.x;
+	d2_classical.y = HEIGHT / 2 - d2.y;
+
+	int	deltaX = abs(d2_classical.x - d1_classical.x);
+	int	deltaY = abs(d2_classical.y - d1_classical.y);
 	int deltaError = (deltaX > deltaY ? deltaX : -deltaY) / 2;
 	int error = deltaError;
-	int x = d1.x;
-	int	y = d1.y;
+	int x = d1_classical.x;
+	int	y = d1_classical.y;
 	while (1)
 	{
 		mlx->data[y * WIDTH + x] = 255 << 16 | 97 << 8 | 97;
-		if (x == d2.x && y == d2.y)
+		if (x == d2_classical.x && y == d2_classical.y)
 			break ;
 		error = deltaError;
 		if (error > -deltaX)
 		{
 			deltaError -= deltaY;
-			x += (d1.x < d2.x) ? 1 : -1;
+			x += (d1_classical.x < d2_classical.x) ? 1 : -1;
 		}
 		if (error < deltaY)
 		{
 			deltaError += deltaX;
-			y += (d1.y < d2.y) ? 1 : -1;
+			y += (d1_classical.y < d2_classical.y) ? 1 : -1;
 		}
 	}
 }

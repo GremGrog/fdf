@@ -29,12 +29,17 @@ void	centering(t_img *img)
 	// 	exit (-1);
 	// }
 	img->grid_width = img->grid_square / img->grid_height;
+
 	margin_y = HEIGHT / 100 * 35;
 	margin_x = WIDTH / 100 * 35;
+
 	cube_height = (HEIGHT - margin_y * 2) / (img->grid_height - 1);
 	cube_width = (WIDTH - margin_x * 2) / (img->grid_width - 1);
-	start_x = margin_x;
-	start_y = margin_y;
+
+	start_x = -1 * (cube_width * (img->grid_width - 1)) / 2;
+	start_y = (cube_height * (img->grid_height - 1)) / 2;
+
+
 	i = 0;
 	// ft_printf("%d %d\n", margin_x, margin_y);
 	while (i < img->grid_square)
@@ -44,11 +49,12 @@ void	centering(t_img *img)
 		{
 			img->dot[i].x = start_x;
 			img->dot[i].y = start_y;
+			// ft_printf("x: %d, y: %d\n", img->dot[i].x, img->dot[i].y);
 			start_x += cube_width;
 			j++;
 			i++;
 		}
-		start_x = margin_x;
-		start_y += cube_height;
+		start_x = -1 * (cube_width * (img->grid_width - 1)) / 2;
+		start_y -= cube_height;
 	}
 }
