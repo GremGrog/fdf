@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calculate_coords.c                                 :+:      :+:    :+:   */
+/*   centering.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../fdf.h"
 
-void	calculate_coords(t_img *img)
+void	centering(t_img *img)
 {
 	int	margin_x;
 	int	margin_y;

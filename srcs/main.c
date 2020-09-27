@@ -44,7 +44,31 @@ void	isometry(t_img *img)
 			i++;
 		}
 	}
-} 
+}
+
+void	rotate_x(t_coord *d)
+{
+	int previous_y;
+    int previous_z;
+
+    previous_y = (HEIGHT / 100 * 35) -d->y;
+	previous_z = d->z;
+    d->y = (previous_y) * cos(0.17444) + previous_z * sin(0.17444);
+	d->z = (-previous_y) * sin(0.17444) + previous_z * cos(0.17444);
+}
+
+void	rotate_figure(int key, t_mlx *mlx)
+{
+	key = 0;
+	int i;
+
+	i = 0;
+	while (i < mlx->img->grid_square)
+	{
+		rotate_x(&(mlx->img->dot[i]));
+		i++;
+	}
+}
 
 int		key_press(int key, void *param)
 {
@@ -52,38 +76,49 @@ int		key_press(int key, void *param)
 	int		i;
 
 	mlx = (t_mlx *)param;
+	ft_bzero(mlx->data, HEIGHT*WIDTH * (mlx->bbp / 8));
+	centering(mlx->img);
 	if (key == 126) {
 		i = 0;
 		while (i < mlx->img->grid_square)
 		{
-			if (mlx->img->dot[i].z != 0)
+			if (mlx->img->dot[i].bump == TRUE)
 				mlx->img->dot[i].z++;
 			i++;
 		}
-	} else if (key == 125)
+	}
+	else if (key == 125)
 	{
 		i = 0;
 		while (i < mlx->img->grid_square)
 		{
-			if (mlx->img->dot[i].z != 0)
-			{
+			if (mlx->img->dot[i].bump == TRUE)
 				mlx->img->dot[i].z--;
-				if (mlx->img->dot[i].z == 0)
-					mlx->img->dot[i].z--;
-			}
 			i++;
 		}
-	} else if (key == 12)
+	}
+	else if (key == 123)
+	{
+		rotate_figure(key, mlx);
+	}
+	else if (key == 12 || key == 53)
 	{ // press Q to quit
 		// terminate()
 		exit(1);
 	}
-	ft_bzero(mlx->data, HEIGHT*WIDTH * (mlx->bbp / 8));
-	calculate_coords(mlx->img);
-	isometry(mlx->img);
+	// isometry(mlx->img);
 	connect_lines(mlx, mlx->img);
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	return 0;
+}
+
+int red_button(void *param)
+{
+	t_mlx	*mlx;
+
+	mlx = (t_mlx *)param;
+	// terminate()
+	exit(1);
 }
 
 int main(int argc, char **argv)
@@ -99,11 +134,14 @@ int main(int argc, char **argv)
 		// }
 		input_processing(argv[1], mlx->img);
 		
-		calculate_coords(mlx->img);
+		centering(mlx->img);
 		isometry(mlx->img);
 		connect_lines(mlx, mlx->img);
 		mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
+		// To handle a key press
 		mlx_hook(mlx->win_ptr, 2, 0, key_press, mlx);
+		// To handle a red button (X button) press
+		mlx_hook(mlx->win_ptr, 17, 0, red_button, mlx);
 		mlx_loop(mlx->ptr);
 	}
 }

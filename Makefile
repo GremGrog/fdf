@@ -17,9 +17,9 @@ HEADER = fdf.h
 GCC = gcc -Wall -Wextra -Werror -g
 
 # school macOS
-# MLX = -L /usr/local/lib/ -lmlx -framework OpenGL -framework Appkit
+MLX = -L /usr/local/lib/ -lmlx -framework OpenGL -framework Appkit
 # home macOS
-MLX = -I /usr/X11/include -g -L /usr/X11/lib -l mlx -framework OpenGL -framework AppKit
+# MLX = -I /usr/X11/include -g -L /usr/X11/lib -l mlx -framework OpenGL -framework AppKit
 
 MAKE_LIB = make -C libft
 
@@ -34,7 +34,7 @@ SRCS = 	main.c \
 		bresenham_alg.c \
 		input_processing.c \
 		validation.c \
-		calculate_coords.c \
+		centering.c \
 
 OBJF = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SRCS)))
 

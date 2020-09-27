@@ -17,9 +17,14 @@
 # include "mlx.h"
 # include <math.h>
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 1500
+// # define WIDTH 1000
+# define HEIGHT 1500
+// # define HEIGHT 1000
 # define WINDOW_NAME "fdf"
+
+# define TRUE 1
+# define FALSE 0
 
 typedef struct  s_coord
 {
@@ -27,9 +32,9 @@ typedef struct  s_coord
 	int 	y;
 	int 	z;
 	long	color;
+	int		bump;
 }				t_coord;
 
-// TODO: move to the s_mlx
 typedef	struct	s_img
 {
 	t_coord	*dot;
@@ -55,7 +60,7 @@ t_mlx			*init_mlx();
 void			input_processing(char *str, t_img *img);
 int				validate_line(char *line);
 
-void			calculate_coords(t_img *img);
+void			centering(t_img *img);
 void			bresenham_alg(t_mlx *mlx, t_coord d1, t_coord d2);
 void			connect_lines(t_mlx *mlx, t_img *img);
 
