@@ -12,38 +12,42 @@
 
 #include "../fdf.h"
 
-void	bresenham_alg(t_mlx *mlx, t_coord d1, t_coord d2)
+void	bresenham_alg(t_mlx *mlx, t_coord d1_actual, t_coord d2_actual)
 {
-	t_coord d1_classical;
-	t_coord d2_classical;
+	int deltaX;
+	int deltaY;
+	int deltaError;
+	int error;
+	int x;
+	int y;
 
-	d1_classical.x = WIDTH / 2 + d1.x;
-	d1_classical.y = HEIGHT / 2 - d1.y;
+	d1_actual.x = WIDTH / 2 + d1_actual.x;
+	d1_actual.y = HEIGHT / 2 - d1_actual.y;
 
-	d2_classical.x = WIDTH / 2 + d2.x;
-	d2_classical.y = HEIGHT / 2 - d2.y;
+	d2_actual.x = WIDTH / 2 + d2_actual.x;
+	d2_actual.y = HEIGHT / 2 - d2_actual.y;
 
-	int	deltaX = abs(d2_classical.x - d1_classical.x);
-	int	deltaY = abs(d2_classical.y - d1_classical.y);
-	int deltaError = (deltaX > deltaY ? deltaX : -deltaY) / 2;
-	int error = deltaError;
-	int x = d1_classical.x;
-	int	y = d1_classical.y;
+	deltaX = abs(d2_actual.x - d1_actual.x);
+	deltaY = abs(d2_actual.y - d1_actual.y);
+	deltaError = (deltaX > deltaY ? deltaX : -deltaY) / 2;
+	error = deltaError;
+	x = d1_actual.x;
+	y = d1_actual.y;
 	while (1)
 	{
 		mlx->data[y * WIDTH + x] = 255 << 16 | 97 << 8 | 97;
-		if (x == d2_classical.x && y == d2_classical.y)
+		if (x == d2_actual.x && y == d2_actual.y)
 			break ;
 		error = deltaError;
 		if (error > -deltaX)
 		{
 			deltaError -= deltaY;
-			x += (d1_classical.x < d2_classical.x) ? 1 : -1;
+			x += (d1_actual.x < d2_actual.x) ? 1 : -1;
 		}
 		if (error < deltaY)
 		{
 			deltaError += deltaX;
-			y += (d1_classical.y < d2_classical.y) ? 1 : -1;
+			y += (d1_actual.y < d2_actual.y) ? 1 : -1;
 		}
 	}
 }
@@ -61,10 +65,14 @@ void	connect_lines(t_mlx *mlx, t_img *img)
 		{
 			// horizontal
 			if (j < img->grid_width - 1)
-				bresenham_alg(mlx, img->dot[i*img->grid_width + j], img->dot[(i*img->grid_width + j) + 1]);
+			{
+				bresenham_alg(mlx, img->dot[i * img->grid_width + j], img->dot[(i * img->grid_width + j) + 1]);
+			}
 			// vertical
 			if (i < img->grid_height - 1)
-				bresenham_alg(mlx, img->dot[i*img->grid_width + j], img->dot[(i+1)*img->grid_width + j]);
+			{
+				bresenham_alg(mlx, img->dot[i * img->grid_width + j], img->dot[(i + 1) * img->grid_width + j]);
+			}
 			j++;
 		}
 		i++;

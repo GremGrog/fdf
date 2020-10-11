@@ -14,13 +14,13 @@
 # define FDF_H
 
 # include "Libft/libft.h"
-# include "mlx.h"
 # include <math.h>
+# include "/usr/X11/include/mlx.h"
 
-# define WIDTH 1500
-// # define WIDTH 1000
-# define HEIGHT 1500
-// # define HEIGHT 1000
+// # define WIDTH 1500
+# define WIDTH 1200
+// # define HEIGHT 1500
+# define HEIGHT 1000
 # define WINDOW_NAME "fdf"
 
 # define TRUE 1
@@ -43,9 +43,18 @@ typedef	struct	s_img
 	int		grid_width;
 }					t_img;
 
+typedef struct	s_cam
+{
+	double	alpha;
+	double	beta;
+	double	gamma;
+	int		front;
+}					t_cam;
+
 typedef struct	s_mlx
 {
 	t_img	*img;
+	t_cam	*camera;
 	void	*ptr;
 	void	*win_ptr;
 	void	*img_ptr;
@@ -60,10 +69,16 @@ t_mlx			*init_mlx();
 void			input_processing(char *str, t_img *img);
 int				validate_line(char *line);
 
+int				key_press(int key, void *param);
+int				red_button(void *param);
+
 void			centering(t_img *img);
 void			bresenham_alg(t_mlx *mlx, t_coord d1, t_coord d2);
 void			connect_lines(t_mlx *mlx, t_img *img);
 
-int				key_press(int key, void *param);
+void			isometry(t_img *img, t_cam *camera);
+void			rotate_figure(int key, t_mlx *mlx);
+
+double			ft_radian(double degree);
 
 #endif

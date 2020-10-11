@@ -12,36 +12,21 @@
 
 #include "../fdf.h"
 
-void	centering(t_img *img)
+int margin_y = HEIGHT / 100 * 35;
+int margin_x = WIDTH / 100 * 35;
+
+void	centering_loop(t_img *img, int cube_width, int cube_height)
 {
-	int	margin_x;
-	int	margin_y;
-	int	start_x;
-	int	start_y;
-	int	cube_width;
-	int	cube_height;
 	int	i;
 	int	j;
-
-	// if (img->grid_square % img->grid_height != 0)
-	// {
-	// 	ft_printf("Error\n");
-	// 	exit (-1);
-	// }
-	img->grid_width = img->grid_square / img->grid_height;
-
-	margin_y = HEIGHT / 100 * 35;
-	margin_x = WIDTH / 100 * 35;
-
-	cube_height = (HEIGHT - margin_y * 2) / (img->grid_height - 1);
-	cube_width = (WIDTH - margin_x * 2) / (img->grid_width - 1);
-
-	start_x = -1 * (cube_width * (img->grid_width - 1)) / 2;
-	start_y = (cube_height * (img->grid_height - 1)) / 2;
-
+	int	start_x;
+	int	start_y;
 
 	i = 0;
-	// ft_printf("%d %d\n", margin_x, margin_y);
+	j = 0;
+	start_x = -1 * (cube_width * (img->grid_width - 1)) / 2;
+	start_y = (cube_height * (img->grid_height - 1)) / 2;
+	i = 0;
 	while (i < img->grid_square)
 	{
 		j = 0;
@@ -49,7 +34,6 @@ void	centering(t_img *img)
 		{
 			img->dot[i].x = start_x;
 			img->dot[i].y = start_y;
-			// ft_printf("x: %d, y: %d\n", img->dot[i].x, img->dot[i].y);
 			start_x += cube_width;
 			j++;
 			i++;
@@ -57,4 +41,22 @@ void	centering(t_img *img)
 		start_x = -1 * (cube_width * (img->grid_width - 1)) / 2;
 		start_y -= cube_height;
 	}
+}
+
+void	centering(t_img *img)
+{
+	int	cube_width;
+	int	cube_height;
+
+
+	if (img->grid_square % img->grid_height != 0)
+	{
+		ft_printf("Error\n");
+		exit (-1);
+	}
+	
+	img->grid_width = img->grid_square / img->grid_height; 
+	cube_height = (HEIGHT - margin_y * 2) / (img->grid_height - 1);
+	cube_width = (WIDTH - margin_x * 2) / (img->grid_width - 1);
+	centering_loop(img, cube_width, cube_height);
 }
