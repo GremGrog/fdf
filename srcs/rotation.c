@@ -20,11 +20,25 @@ void	rotate_figure(int key, t_mlx *mlx)
 		if (key == 123)
 		{
 			mlx->camera->alpha -= 0.01;
+            if (fabs(mlx->camera->alpha) >= 360.0)
+                mlx->camera->alpha = 0.0;
+            check_image_front(mlx->camera);
+            if (mlx->camera->front == FALSE && mlx->img->dot[i].z > 0)
+                mlx->img->dot[i].z *= (-1);
+            else if (mlx->camera->front == TRUE && mlx->img->dot[i].z < 0)
+                mlx->img->dot[i].z *= (-1);
 			rotate_x(&(mlx->img->dot[i]), mlx->camera);
 		}
 		else if (key == 124)
 		{
 			mlx->camera->alpha += 0.01;
+            if (fabs(mlx->camera->alpha) >= 360.0)
+                mlx->camera->alpha = 0.0;
+            check_image_front(mlx->camera);
+            if (mlx->camera->front == FALSE && mlx->img->dot[i].z > 0)
+                mlx->img->dot[i].z *= (-1);
+            else if (mlx->camera->front == TRUE && mlx->img->dot[i].z < 0)
+                mlx->img->dot[i].z *= (-1);
 			rotate_x(&(mlx->img->dot[i]), mlx->camera);
 		}
 		i++;

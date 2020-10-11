@@ -36,7 +36,8 @@ int		key_press(int key, void *param)
 		// terminate()
 		exit(1);
 	}
-	isometry(mlx->img, mlx->camera);
+    // check_image_front(mlx->camera);
+	isometry(mlx->img);
 	connect_lines(mlx, mlx->img);
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	return 0;
