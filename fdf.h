@@ -25,6 +25,16 @@
 
 # define TRUE 1
 # define FALSE 0
+# define ISO 111
+# define CENTRAL 222
+# define Q 12
+# define W 13
+# define A 0
+# define S 1
+# define Z 6
+# define X 7
+# define UP_ARROW 126
+# define DOWN_ARROW 125
 
 typedef struct  s_coord
 {
@@ -49,6 +59,7 @@ typedef struct	s_cam
 	double	beta;
 	double	gamma;
 	int		front;
+	int		projection;
 }					t_cam;
 
 typedef struct	s_mlx
@@ -78,7 +89,11 @@ void			centering(t_img *img);
 void			bresenham_alg(t_mlx *mlx, t_coord d1, t_coord d2);
 void			connect_lines(t_mlx *mlx, t_img *img);
 
-void			isometry(t_img *img);
+void			rotate_x(t_coord *d, t_cam *camera);
+void			rotate_y(t_coord *d, t_cam *camera);
+void			rotate_z(t_coord *d, t_cam *camera);
+
+void	isometry(t_img *img, t_mlx *mlx);
 void			rotate_figure(int key, t_mlx *mlx);
 
 double			ft_radian(double degree);

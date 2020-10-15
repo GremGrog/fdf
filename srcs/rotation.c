@@ -3,11 +3,39 @@
 void	rotate_x(t_coord *d, t_cam *camera)
 {
 	int previous_y;
-    int previous_z;
 
     previous_y = d->y;
-	previous_z = d->z;
-    d->y = previous_y * cos(ft_radian(camera->alpha)) + previous_z * sin(ft_radian(camera->alpha));
+    d->y = previous_y * cos(ft_radian(camera->alpha)) +  d->z * sin(ft_radian(camera->alpha));
+}
+
+void	rotate_y(t_coord *d, t_cam *camera)
+{
+	int previous_x;
+
+	previous_x = d->x;
+	d->x = previous_x * cos(ft_radian(camera->beta)) + d->z * sin(ft_radian(camera->beta));
+}
+
+void	rotate_z(t_coord *d, t_cam *camera)
+{
+	int previous_x;
+	int previous_y;
+
+	previous_x = d->x;
+	previous_y = d->y;
+	
+	d->x = previous_x * cos(ft_radian(camera->gamma)) - previous_y * sin(ft_radian(camera->gamma));
+	d->y = previous_x * sin(ft_radian(camera->gamma)) + previous_y * cos(ft_radian(camera->gamma));
+}
+
+void	normalize_degree_value(t_cam *camera)
+{
+ 	if (fabs(camera->alpha) >= 360.0)
+       	camera->alpha = 0.0;
+	if (fabs(camera->beta) >= 360.0)
+       	camera->beta = 0.0;
+	if (fabs(camera->gamma) >= 360.0)
+       	camera->gamma = 0.0;
 }
 
 void	rotate_figure(int key, t_mlx *mlx)
@@ -15,32 +43,24 @@ void	rotate_figure(int key, t_mlx *mlx)
 	int i;
 
 	i = 0;
+	if (key != Q && key != W && key != A && key != S && key != Z && key != X)
+		return;
 	while (i < mlx->img->grid_square)
 	{
-		if (key == 123)
-		{
+		if (key == Q)
 			mlx->camera->alpha -= 0.01;
-            if (fabs(mlx->camera->alpha) >= 360.0)
-                mlx->camera->alpha = 0.0;
-            check_image_front(mlx->camera);
-            if (mlx->camera->front == FALSE && mlx->img->dot[i].z > 0)
-                mlx->img->dot[i].z *= (-1);
-            else if (mlx->camera->front == TRUE && mlx->img->dot[i].z < 0)
-                mlx->img->dot[i].z *= (-1);
-			rotate_x(&(mlx->img->dot[i]), mlx->camera);
-		}
-		else if (key == 124)
-		{
+		else if (key == W)
 			mlx->camera->alpha += 0.01;
-            if (fabs(mlx->camera->alpha) >= 360.0)
-                mlx->camera->alpha = 0.0;
-            check_image_front(mlx->camera);
-            if (mlx->camera->front == FALSE && mlx->img->dot[i].z > 0)
-                mlx->img->dot[i].z *= (-1);
-            else if (mlx->camera->front == TRUE && mlx->img->dot[i].z < 0)
-                mlx->img->dot[i].z *= (-1);
-			rotate_x(&(mlx->img->dot[i]), mlx->camera);
-		}
+		else if (key == A)
+			mlx->camera->beta -= 0.01;
+		else if (key == S)
+			mlx->camera->beta += 0.01;
+		else if (key == Z)
+			mlx->camera->gamma -= 0.01;
+		else if (key == X)
+			mlx->camera->gamma += 0.01;
+		normalize_degree_value(mlx->camera);
+        check_image_front(mlx->camera);
 		i++;
 	}
 }

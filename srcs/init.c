@@ -23,6 +23,7 @@ t_cam	*init_camera()
 	cam->beta = 0.0;
 	cam->gamma = 0.0;
 	cam->front = TRUE;
+	cam->projection = ISO;
 	return cam;
 }
 

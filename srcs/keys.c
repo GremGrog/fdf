@@ -1,43 +1,48 @@
 #include "../fdf.h"
 
+void	handle_heigth_change(int key, t_mlx *mlx)
+{
+	int i;
+
+	i = 0;
+	while (i < mlx->img->grid_square)
+	{
+		if (mlx->img->dot[i].bump == TRUE)
+		{
+			if (key == UP_ARROW) 
+				mlx->img->dot[i].z++;
+			else if (key == DOWN_ARROW)
+				mlx->img->dot[i].z--;
+		}
+		i++;
+	}
+}
+
 int		key_press(int key, void *param)
 {
 	t_mlx	*mlx;
-	int		i;
 
 	mlx = (t_mlx *)param;
 	ft_bzero(mlx->data, HEIGHT * WIDTH * (mlx->bbp / 8));
 	centering(mlx->img);
-	if (key == 126) {
-		i = 0;
-		while (i < mlx->img->grid_square)
-		{
-			if (mlx->img->dot[i].bump == TRUE)
-				mlx->img->dot[i].z++;
-			i++;
-		}
-	}
-	else if (key == 125)
-	{
-		i = 0;
-		while (i < mlx->img->grid_square)
-		{
-			if (mlx->img->dot[i].bump == TRUE)
-				mlx->img->dot[i].z--;
-			i++;
-		}
-	}
-	else if (key == 123 || key == 124)
-	{
+
+	// 126(up arrow), 125(down arrow)
+	if (key == UP_ARROW || key == DOWN_ARROW)
+		handle_heigth_change(key, mlx);
+	else if (key == Q || key == W || key == A || key == S || key == Z || key == X)
 		rotate_figure(key, mlx);
-	}
-	else if (key == 12 || key == 53)
-	{ // press Q to quit
+
+	// 49 - change projection
+
+	// 27(-), 24(+) - zoom
+
+	// 53(esc) - quit
+	else if (key == 53)
+	{
 		// terminate()
 		exit(1);
 	}
-    // check_image_front(mlx->camera);
-	isometry(mlx->img);
+	isometry(mlx->img, mlx);
 	connect_lines(mlx, mlx->img);
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	return 0;

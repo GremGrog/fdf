@@ -30,10 +30,10 @@ double  convert_degree(double degree)
 
 void    check_image_front(t_cam *camera)
 {
-    if (convert_degree(camera->alpha) >= 90.0 && convert_degree(camera->alpha) < 270.0)
-        camera->front = FALSE;
-    else
-        camera->front = TRUE;
+	if (convert_degree(camera->alpha) >= 90.0 && convert_degree(camera->alpha) < 270.0)
+		camera->front = FALSE;
+	else
+		camera->front = TRUE;
 }
 
 
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 		input_processing(argv[1], mlx->img);
 		
 		centering(mlx->img);
-		isometry(mlx->img);
+		isometry(mlx->img, mlx);
 		connect_lines(mlx, mlx->img);
 		mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 

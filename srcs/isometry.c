@@ -11,7 +11,7 @@ void	calc_iso(t_coord *d)
     d->y = d->z + (previous_x - previous_y) * sin(ft_radian(-30));
 }
 
-void	isometry(t_img *img)
+void	isometry(t_img *img, t_mlx *mlx)
 { 
 	int	i;
 
@@ -19,6 +19,9 @@ void	isometry(t_img *img)
 	while (i < img->grid_square)
 	{
 		calc_iso(&img->dot[i]);
+		rotate_x(&(mlx->img->dot[i]), mlx->camera);
+		rotate_y(&(mlx->img->dot[i]), mlx->camera);
+		rotate_z(&(mlx->img->dot[i]), mlx->camera);
 		i++;
 	}
 }
