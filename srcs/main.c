@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 		input_processing(argv[1], mlx->img);
 		
 		centering(mlx->img);
-		isometry(mlx->img, mlx);
+		isometry(mlx->img);
 		connect_lines(mlx, mlx->img);
 		mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 

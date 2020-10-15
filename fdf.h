@@ -35,6 +35,8 @@
 # define X 7
 # define UP_ARROW 126
 # define DOWN_ARROW 125
+# define SPACE 49
+# define ESC 53
 
 typedef struct  s_coord
 {
@@ -93,7 +95,7 @@ void			rotate_x(t_coord *d, t_cam *camera);
 void			rotate_y(t_coord *d, t_cam *camera);
 void			rotate_z(t_coord *d, t_cam *camera);
 
-void	isometry(t_img *img, t_mlx *mlx);
+void			isometry(t_img *img);
 void			rotate_figure(int key, t_mlx *mlx);
 
 double			ft_radian(double degree);
