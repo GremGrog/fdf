@@ -33,10 +33,23 @@
 # define S 1
 # define Z 6
 # define X 7
+
+// change color pair
+# define L 37
+
 # define UP_ARROW 126
 # define DOWN_ARROW 125
 # define SPACE 49
 # define ESC 53
+
+# define YELLOW_COLOR (255 << 16 | 255 << 8 | 0)
+# define PINK_COLOR (255 << 16 | 0 << 8 | 150)
+# define PURPLE_COLOR (97 << 16 | 0 << 8 | 144)
+# define GREEN_COLOR (0 << 16 | 255 << 8 | 0)
+# define BLUE_COLOR (0 << 16 | 0 << 8 | 255)
+# define RED_COLOR (255 << 16 | 97 << 8 | 97)
+
+# define NUMBER_OF_COLOR_PAIRS 4
 
 typedef struct  s_coord
 {
@@ -77,10 +90,21 @@ typedef struct	s_mlx
 	int     endian;
 }					t_mlx;
 
+typedef struct s_colorpair
+{
+	int			base;
+	int			bump;
+}				t_colorpair;
+
+t_colorpair		g_color_pair;
+
 t_img			*init_img();
 t_mlx			*init_mlx();
 void			input_processing(char *str, t_img *img);
 int				validate_line(char *line);
+
+int     get_color(t_coord start, t_coord end, t_coord delta, t_coord current);
+void        	change_color_pair(void);
 
 void    		check_image_front(t_cam *camera);
 double  		convert_degree(double degree);

@@ -15,9 +15,9 @@
 void	bresenham_alg(t_mlx *mlx, t_coord d1_actual, t_coord d2_actual)
 {
 	t_coord delta;
+	t_coord current;
 	int deltaError;
 	int error;
-	t_coord current;
 
 	d1_actual.x = WIDTH / 2 + d1_actual.x;
 	d1_actual.y = HEIGHT / 2 - d1_actual.y;
@@ -33,8 +33,7 @@ void	bresenham_alg(t_mlx *mlx, t_coord d1_actual, t_coord d2_actual)
 	current.y = d1_actual.y;
 	while (1)
 	{
-		mlx->data[current.y * WIDTH + current.x] = 255 << 16 | 97 << 8 | 97;
-		// mlx->data[current.y * WIDTH + current.x] = get_color(d1_actual, d2_actual);
+		mlx->data[current.y * WIDTH + current.x] = get_color(d1_actual, d2_actual, delta, current);
 		if (current.x == d2_actual.x && current.y == d2_actual.y)
 			break ;
 		error = deltaError;

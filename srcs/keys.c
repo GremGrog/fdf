@@ -39,7 +39,8 @@ int		key_press(int key, void *param)
 		rotate_figure(key, mlx);
 	else if (key == SPACE)
 		change_projection(mlx->camera);
-	// 27(-), 24(+) - zoom
+	else if (key == L)
+		change_color_pair();
 	else if (key == ESC)
 	{
 		// terminate()
