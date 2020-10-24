@@ -14,12 +14,10 @@
 
 void	bresenham_alg(t_mlx *mlx, t_coord d1_actual, t_coord d2_actual)
 {
-	int deltaX;
-	int deltaY;
+	t_coord delta;
 	int deltaError;
 	int error;
-	int x;
-	int y;
+	t_coord current;
 
 	d1_actual.x = WIDTH / 2 + d1_actual.x;
 	d1_actual.y = HEIGHT / 2 - d1_actual.y;
@@ -27,27 +25,28 @@ void	bresenham_alg(t_mlx *mlx, t_coord d1_actual, t_coord d2_actual)
 	d2_actual.x = WIDTH / 2 + d2_actual.x;
 	d2_actual.y = HEIGHT / 2 - d2_actual.y;
 
-	deltaX = abs(d2_actual.x - d1_actual.x);
-	deltaY = abs(d2_actual.y - d1_actual.y);
-	deltaError = (deltaX > deltaY ? deltaX : -deltaY) / 2;
+	delta.x = abs(d2_actual.x - d1_actual.x);
+	delta.y = abs(d2_actual.y - d1_actual.y); 
+	deltaError = (delta.x > delta.y ? delta.x : -delta.y) / 2;
 	error = deltaError;
-	x = d1_actual.x;
-	y = d1_actual.y;
+	current.x = d1_actual.x;
+	current.y = d1_actual.y;
 	while (1)
 	{
-		mlx->data[y * WIDTH + x] = 255 << 16 | 97 << 8 | 97;
-		if (x == d2_actual.x && y == d2_actual.y)
+		mlx->data[current.y * WIDTH + current.x] = 255 << 16 | 97 << 8 | 97;
+		// mlx->data[current.y * WIDTH + current.x] = get_color(d1_actual, d2_actual);
+		if (current.x == d2_actual.x && current.y == d2_actual.y)
 			break ;
 		error = deltaError;
-		if (error > -deltaX)
+		if (error > -delta.x)
 		{
-			deltaError -= deltaY;
-			x += (d1_actual.x < d2_actual.x) ? 1 : -1;
+			deltaError -= delta.y;
+			current.x += (d1_actual.x < d2_actual.x) ? 1 : -1;
 		}
-		if (error < deltaY)
+		if (error < delta.y)
 		{
-			deltaError += deltaX;
-			y += (d1_actual.y < d2_actual.y) ? 1 : -1;
+			deltaError += delta.x;
+			current.y += (d1_actual.y < d2_actual.y) ? 1 : -1;
 		}
 	}
 }
