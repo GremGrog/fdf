@@ -91,13 +91,19 @@ int		count_input_len(char *str, t_img *img)
 	int		fd;
 	char	*buf;
 	int		len;
+	int		first_line_dots_num;
 
-	// TODO: protect open
-	fd = open(str, O_RDONLY);
+	if ((fd = open(str, O_RDONLY)) < 0)
+		return (-1);
+	first_line_dots_num = -1;
 	while (get_next_line(fd, &buf) > 0)
 	{
 		if (validate_line(buf) == 0 && (len = count_words(buf)) > 0)
 		{
+			if (first_line_dots_num == -1)
+				first_line_dots_num = len;
+			else if (first_line_dots_num != len)
+				return -1;
 			img->grid_square += len;
 			free(buf);
 		}
@@ -117,7 +123,7 @@ void	input_processing(char *str, t_img *img)
 		ft_printf("Error\n");
 		exit(-1);
 	}
-	// TODO: protect malloc
-	img->dot = (t_coord*)malloc(sizeof(t_coord) * img->grid_square);
+	if (!(img->dot = (t_coord*)malloc(sizeof(t_coord) * img->grid_square)))
+		exit(-1);
 	read_input(str, img);
 }
