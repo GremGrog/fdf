@@ -48,17 +48,17 @@ void	rotate_figure(int key, t_mlx *mlx)
 	while (i < mlx->img->grid_square)
 	{
 		if (key == Q)
-			mlx->camera->alpha -= 0.01;
+			mlx->camera->alpha -= ROTATION_STEP;
 		else if (key == W)
-			mlx->camera->alpha += 0.01;
+			mlx->camera->alpha += ROTATION_STEP;
 		else if (key == A)
-			mlx->camera->beta -= 0.01;
+			mlx->camera->beta -= ROTATION_STEP;
 		else if (key == S)
-			mlx->camera->beta += 0.01;
+			mlx->camera->beta += ROTATION_STEP;
 		else if (key == Z)
-			mlx->camera->gamma -= 0.01;
+			mlx->camera->gamma -= ROTATION_STEP;
 		else if (key == X)
-			mlx->camera->gamma += 0.01;
+			mlx->camera->gamma += ROTATION_STEP;
 		normalize_degree_value(mlx->camera);
         check_image_front(mlx->camera);
 		i++;

@@ -9,9 +9,9 @@ void	handle_heigth_change(int key, t_mlx *mlx)
 	{
 		if (mlx->img->dot[i].bump == TRUE)
 		{
-			if (key == UP_ARROW) 
+			if (key == R && mlx->img->dot[i].z <= MAX_HEIGHT) 
 				mlx->img->dot[i].z++;
-			else if (key == DOWN_ARROW)
+			else if (key == F && mlx->img->dot[i].z >= -MAX_HEIGHT)
 				mlx->img->dot[i].z--;
 		}
 		i++;
@@ -33,7 +33,7 @@ int		key_press(int key, void *param)
 	mlx = (t_mlx *)param;
 	ft_bzero(mlx->data, HEIGHT * WIDTH * (mlx->bbp / 8));
 	centering(mlx->img);
-	if (key == UP_ARROW || key == DOWN_ARROW)
+	if (key == R || key == F)
 		handle_heigth_change(key, mlx);
 	else if (key == Q || key == W || key == A || key == S || key == Z || key == X)
 		rotate_figure(key, mlx);

@@ -15,13 +15,16 @@
 
 # include "Libft/libft.h"
 # include <math.h>
-# include "/usr/X11/include/mlx.h"
+# include "mlx.h"
 
-// # define WIDTH 1500
-# define WIDTH 1200
+# define WIDTH 1500
+// # define WIDTH 1200
 // # define HEIGHT 1500
-# define HEIGHT 1000
+# define HEIGHT 1200
 # define WINDOW_NAME "fdf"
+
+# define ROTATION_STEP 0.02
+# define MAX_HEIGHT 50
 
 # define TRUE 1
 # define FALSE 0
@@ -37,8 +40,10 @@
 // change color pair
 # define L 37
 
-# define UP_ARROW 126
-# define DOWN_ARROW 125
+// change height
+# define R 15
+# define F 3
+
 # define SPACE 49
 # define ESC 53
 
@@ -103,7 +108,7 @@ t_mlx			*init_mlx();
 void			input_processing(char *str, t_img *img);
 int				validate_line(char *line);
 
-int     get_color(t_coord start, t_coord end, t_coord delta, t_coord current);
+int				get_color(t_coord start, t_coord end, t_coord delta, t_coord current);
 void        	change_color_pair(void);
 
 void    		check_image_front(t_cam *camera);

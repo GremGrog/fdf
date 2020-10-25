@@ -27,6 +27,7 @@ void	bresenham_alg(t_mlx *mlx, t_coord d1_actual, t_coord d2_actual)
 
 	delta.x = abs(d2_actual.x - d1_actual.x);
 	delta.y = abs(d2_actual.y - d1_actual.y); 
+
 	deltaError = (delta.x > delta.y ? delta.x : -delta.y) / 2;
 	error = deltaError;
 	current.x = d1_actual.x;
@@ -69,17 +70,12 @@ void	connect_lines(t_mlx *mlx, t_img *img)
 		j = 0;
 		while (j < img->grid_width)
 		{
-
 			// horizontal
 			if (j < img->grid_width - 1)
-			{
 				bresenham_alg(mlx, img->dot[i * img->grid_width + j], img->dot[(i * img->grid_width + j) + 1]);
-			}
 			// vertical
 			if (i < img->grid_height - 1)
-			{
 				bresenham_alg(mlx, img->dot[i * img->grid_width + j], img->dot[(i + 1) * img->grid_width + j]);
-			}
 			j++;
 		}
 		i++;
