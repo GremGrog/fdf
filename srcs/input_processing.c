@@ -45,6 +45,7 @@ int		add_coords(char *str, t_coord **dot, int line_num, int dot_index)
 	line = ft_strsplit(str, ' ');
 	while (line[i])
 	{
+		(*dot)[j].z_shift = 0;
 		(*dot)[j].x = i;
 		(*dot)[j].y = line_num;
 		if ((char*)ft_strchr(line[i], ',') != NULL)

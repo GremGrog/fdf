@@ -15,7 +15,8 @@
 
 # include "Libft/libft.h"
 # include <math.h>
-# include "mlx.h"
+// # include "mlx.h"
+# include "/usr/X11/include/mlx.h"
 
 # define WIDTH 1500
 // # define WIDTH 1200
@@ -61,6 +62,7 @@ typedef struct  s_coord
 	int 	x;
 	int 	y;
 	int 	z;
+	int		z_shift;
 	long	color;
 	int		bump;
 }				t_coord;

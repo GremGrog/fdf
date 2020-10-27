@@ -9,10 +9,16 @@ void	handle_heigth_change(int key, t_mlx *mlx)
 	{
 		if (mlx->img->dot[i].bump == TRUE)
 		{
-			if (key == R && mlx->img->dot[i].z <= MAX_HEIGHT) 
+			if (key == R && mlx->img->dot[i].z_shift <= MAX_HEIGHT) 
+			{
 				mlx->img->dot[i].z++;
-			else if (key == F && mlx->img->dot[i].z >= -MAX_HEIGHT)
+				mlx->img->dot[i].z_shift++;
+			}
+			else if (key == F && mlx->img->dot[i].z_shift >= -MAX_HEIGHT)
+			{
 				mlx->img->dot[i].z--;
+				mlx->img->dot[i].z_shift--;
+			}
 		}
 		i++;
 	}
