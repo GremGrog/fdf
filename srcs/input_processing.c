@@ -112,6 +112,7 @@ int		count_input_len(char *str, t_img *img)
 			return (-1);
 	}
 	close(fd);
+	set_rotation_step(img);
 	return (0);
 }
 

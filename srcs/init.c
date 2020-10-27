@@ -12,6 +12,13 @@
 
 #include "../fdf.h"
 
+void	set_rotation_step(t_img *img)
+{
+	if (img->grid_square > 1000)
+		img->rotation_step /= 10.0;
+	if (img->grid_square > 10000)
+		img->rotation_step /= 10.0;
+}
 
 t_cam	*init_camera()
 {
@@ -36,6 +43,7 @@ t_img	*init_img()
 	img->grid_height = 0;
 	img->grid_square = 0;
 	img->grid_width = 0;
+	img->rotation_step = BASIC_ROTATION_STEP;
 	img->dot = NULL;
 	return (img);
 }

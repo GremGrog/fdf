@@ -24,7 +24,7 @@
 # define HEIGHT 1200
 # define WINDOW_NAME "fdf"
 
-# define ROTATION_STEP 0.02
+# define BASIC_ROTATION_STEP 0.02
 # define MAX_HEIGHT 50
 
 # define TRUE 1
@@ -73,6 +73,7 @@ typedef	struct	s_img
 	int		grid_square;
 	int		grid_height;
 	int		grid_width;
+	double  rotation_step;
 }					t_img;
 
 typedef struct	s_cam
@@ -109,6 +110,8 @@ t_img			*init_img();
 t_mlx			*init_mlx();
 void			input_processing(char *str, t_img *img);
 int				validate_line(char *line);
+
+void			set_rotation_step(t_img *img);
 
 int				get_color(t_coord start, t_coord end, t_coord delta, t_coord current);
 void        	change_color_pair(void);
