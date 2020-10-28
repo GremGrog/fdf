@@ -52,7 +52,6 @@ int main(int argc, char **argv)
 		// }
 
 		input_processing(argv[1], mlx->img);
-		
 		centering(mlx->img);
 		isometry(mlx->img);
 		connect_lines(mlx, mlx->img);
