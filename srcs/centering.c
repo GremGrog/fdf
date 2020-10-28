@@ -54,9 +54,14 @@ void	centering(t_img *img)
 		ft_printf("Error\n");
 		exit (-1);
 	}
-	
 	img->grid_width = img->grid_square / img->grid_height; 
-	cube_height = (HEIGHT - margin_y * 2) / (img->grid_height - 1);
-	cube_width = (WIDTH - margin_x * 2) / (img->grid_width - 1);
+	if (img->grid_height == 1)
+		cube_height = (HEIGHT - margin_y * 2);
+	else
+		cube_height = (HEIGHT - margin_y * 2) / (img->grid_height - 1);
+	if (img->grid_width == 1)
+		cube_width = (WIDTH - margin_x * 2);
+	else
+		cube_width = (WIDTH - margin_x * 2) / (img->grid_width - 1);
 	centering_loop(img, cube_width, cube_height);
 }

@@ -18,10 +18,10 @@
 // # include "mlx.h"
 # include "/usr/X11/include/mlx.h"
 
-# define WIDTH 1500
-// # define WIDTH 1200
+// # define WIDTH 1500
+# define WIDTH 1200
 // # define HEIGHT 1500
-# define HEIGHT 1200
+# define HEIGHT 800
 # define WINDOW_NAME "fdf"
 
 # define BASIC_ROTATION_STEP 0.02
