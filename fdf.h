@@ -23,9 +23,14 @@
 // # define HEIGHT 1500
 # define HEIGHT 800
 # define WINDOW_NAME "fdf"
+# define RESOLUTION WIDTH * HEIGHT
 
 # define BASIC_ROTATION_STEP 0.02
 # define MAX_HEIGHT 50
+
+
+# define MARGIN_Y (HEIGHT / 100 * 35)
+# define MARGIN_X (WIDTH / 100 * 35)
 
 # define TRUE 1
 # define FALSE 0
@@ -37,6 +42,9 @@
 # define S 1
 # define Z 6
 # define X 7
+# define PLUS 24
+# define MINUS 27
+# define DELETE 51
 
 // change color pair
 # define L 37
@@ -70,9 +78,14 @@ typedef struct  s_coord
 typedef	struct	s_img
 {
 	t_coord	*dot;
+	t_coord	*def;
 	int		grid_square;
 	int		grid_height;
 	int		grid_width;
+	int		cube_width;
+	int		cube_height;
+	int		margin_x;
+	int		margin_y;
 	double  rotation_step;
 }					t_img;
 
@@ -133,5 +146,6 @@ void			isometry(t_img *img);
 void			rotate_figure(int key, t_mlx *mlx);
 
 double			ft_radian(double degree);
+void			reset(t_img *img);
 
 #endif

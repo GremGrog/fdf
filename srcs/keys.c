@@ -47,13 +47,32 @@ int		key_press(int key, void *param)
 		change_projection(mlx->camera);
 	else if (key == L)
 		change_color_pair();
+	else if (key == DELETE)
+		reset(mlx->img);
 	else if (key == ESC)
 	{
 		// terminate()
 		exit(1);
 	}
+	else if (key == PLUS) {
+		if (mlx->img->margin_x > -100 && mlx->img->margin_y > - 100) 
+		{
+			mlx->img->margin_x -= 10;
+			mlx->img->margin_y -= 10;
+		}
+	}
+	else if (key == MINUS) {
+		if (mlx->img->margin_x < 400 && mlx->img->margin_y < 400) {
+			mlx->img->margin_x += 10;
+			mlx->img->margin_y += 10;
+		}
+	}
 	if (mlx->camera->projection == ISO)
 		isometry(mlx->img);
+	
+	
+	// TODO 
+
 	connect_lines(mlx, mlx->img);
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	return 0;

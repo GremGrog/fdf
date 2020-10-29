@@ -43,6 +43,10 @@ t_img	*init_img()
 	img->grid_height = 0;
 	img->grid_square = 0;
 	img->grid_width = 0;
+	img->cube_height = 0;
+	img->cube_width = 0;
+	img->margin_x = MARGIN_X;
+	img->margin_y = MARGIN_Y;
 	img->rotation_step = BASIC_ROTATION_STEP;
 	img->dot = NULL;
 	return (img);

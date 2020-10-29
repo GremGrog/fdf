@@ -3,17 +3,43 @@
 
 		0. отрефакторить код
 		1. потестить парсер и валидатор
-		2. обработка клавиш:
-			- esc для выхода из программы
-			- клавиши +- для зума (колесико мышки)
-			- клавиши для изменения высоты
-			- стрелки для поворота карты
-			- клавиши для смены цвета + сама смена
-			- смена проекции
+		2. написать функцию сброса к дефолтным значениям
+		3. написать функцию пересчета ширины и высоты куба после зума
+		4. написать функцию применения поворотов
+		5. написать функцию перемещения картинки
+
 */
 
 // TODO: change to "fdf.h"
 #include "../fdf.h"
+
+void	set_default(t_img *img)
+{
+	int i;
+	t_coord	*arr;
+
+	i = 0;
+	arr = (t_coord*)malloc((sizeof(t_coord) * img->grid_square));
+	while(i < img->grid_square)
+	{
+		arr[i] = img->dot[i];
+		i++;
+	}
+	img->def = arr;
+}
+
+void	reset(t_img *img)
+{
+	int i;
+
+	i = 0;
+	
+	while(i < img->grid_square)
+	{
+		img->dot[i] = img->def[i];
+		i++;
+	}
+}
 
 
 double	ft_radian(double degree)
@@ -50,9 +76,9 @@ int main(int argc, char **argv)
 		// if (img == NULL) {
 		// 	terminate()
 		// }
-
 		input_processing(argv[1], mlx->img);
 		centering(mlx->img);
+		set_default(mlx->img);
 		isometry(mlx->img);
 		connect_lines(mlx, mlx->img);
 		mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);

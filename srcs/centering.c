@@ -12,9 +12,6 @@
 
 #include "../fdf.h"
 
-int margin_y = HEIGHT / 100 * 35;
-int margin_x = WIDTH / 100 * 35;
-
 void	centering_loop(t_img *img, int cube_width, int cube_height)
 {
 	int	i;
@@ -45,10 +42,6 @@ void	centering_loop(t_img *img, int cube_width, int cube_height)
 
 void	centering(t_img *img)
 {
-	int	cube_width;
-	int	cube_height;
-
-
 	if (img->grid_square % img->grid_height != 0)
 	{
 		ft_printf("Error\n");
@@ -56,12 +49,12 @@ void	centering(t_img *img)
 	}
 	img->grid_width = img->grid_square / img->grid_height; 
 	if (img->grid_height == 1)
-		cube_height = (HEIGHT - margin_y * 2);
+		img->cube_height = (HEIGHT - img->margin_y * 2);
 	else
-		cube_height = (HEIGHT - margin_y * 2) / (img->grid_height - 1);
+		img->cube_height = (HEIGHT - img->margin_y * 2) / (img->grid_height - 1);
 	if (img->grid_width == 1)
-		cube_width = (WIDTH - margin_x * 2);
+		img->cube_width = (WIDTH - img->margin_x * 2);
 	else
-		cube_width = (WIDTH - margin_x * 2) / (img->grid_width - 1);
-	centering_loop(img, cube_width, cube_height);
+		img->cube_width = (WIDTH - img->margin_x * 2) / (img->grid_width - 1);
+	centering_loop(img, img->cube_width, img->cube_height);
 }
