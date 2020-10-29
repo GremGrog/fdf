@@ -3,6 +3,7 @@
 
 		0. отрефакторить код
 		1. потестить парсер и валидатор
+
 		2. написать функцию сброса к дефолтным значениям
 		3. написать функцию пересчета ширины и высоты куба после зума
 		4. написать функцию применения поворотов
@@ -28,17 +29,22 @@ void	set_default(t_img *img)
 	img->def = arr;
 }
 
-void	reset(t_img *img)
+void	reset(t_mlx *mlx)
 {
 	int i;
 
 	i = 0;
 	
-	while(i < img->grid_square)
+	while(i < mlx->img->grid_square)
 	{
-		img->dot[i] = img->def[i];
+		mlx->img->dot[i] = mlx->img->def[i];
 		i++;
 	}
+	mlx->camera->alpha = 0;
+	mlx->camera->beta = 0;
+	mlx->camera->gamma = 0;
+	mlx->img->margin_x = MARGIN_X;
+	mlx->img->margin_y = MARGIN_Y;
 }
 
 

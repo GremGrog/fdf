@@ -48,7 +48,7 @@ int		key_press(int key, void *param)
 	else if (key == L)
 		change_color_pair();
 	else if (key == DELETE)
-		reset(mlx->img);
+		reset(mlx);
 	else if (key == ESC)
 	{
 		// terminate()

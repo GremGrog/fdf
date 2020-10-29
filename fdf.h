@@ -146,6 +146,5 @@ void			isometry(t_img *img);
 void			rotate_figure(int key, t_mlx *mlx);
 
 double			ft_radian(double degree);
-void			reset(t_img *img);
-
+void			reset(t_mlx *mlx);
 #endif
