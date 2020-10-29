@@ -12,6 +12,17 @@
 
 #include "../fdf.h"
 
+int		in_hex(char c)
+{
+	if (ft_isdigit(c) == 1)
+		return 1;
+	if (c >= 'a' && c <= 'f')
+		return 1;
+	if (c >= 'A' && c <= 'F')
+		return 1;
+	return 0;
+}
+
 int		validate_color(char *line, int i)
 {
 	if (line[i] == '0')
@@ -20,10 +31,9 @@ int		validate_color(char *line, int i)
 		if (line[i] == 'x')
 		{
 			i++;
-			if (ft_isdigit(line[i]) == 1 || (line[i] >= 'a' && line[i] <= 'f'))
+			if (in_hex(line[i]))
 			{
-				while (line[i] && (ft_isdigit(line[i]) == 1 ||
-				(line[i] >= 'a' && line[i] <= 'f')))
+				while (line[i] && (in_hex(line[i])))
 					i++;
 				return (i);
 			}
