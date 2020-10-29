@@ -1,6 +1,6 @@
 #include "../fdf.h"
 
-void	rotate_x(t_coord *d, t_cam *camera)
+void	rotate_x(t_point *d, t_cam *camera)
 {
 	int previous_y;
 
@@ -8,7 +8,7 @@ void	rotate_x(t_coord *d, t_cam *camera)
     d->y = previous_y * cos(ft_radian(camera->alpha)) +  d->z * sin(ft_radian(camera->alpha));
 }
 
-void	rotate_y(t_coord *d, t_cam *camera)
+void	rotate_y(t_point *d, t_cam *camera)
 {
 	int previous_x;
 
@@ -16,7 +16,7 @@ void	rotate_y(t_coord *d, t_cam *camera)
 	d->x = previous_x * cos(ft_radian(camera->beta)) + d->z * sin(ft_radian(camera->beta));
 }
 
-void	rotate_z(t_coord *d, t_cam *camera)
+void	rotate_z(t_point *d, t_cam *camera)
 {
 	int previous_x;
 	int previous_y;
@@ -48,19 +48,19 @@ void	rotate_figure(int key, t_mlx *mlx)
 	while (i < mlx->img->grid_square)
 	{
 		if (key == Q)
-			mlx->camera->alpha -= mlx->img->rotation_step;
+			mlx->img->camera->alpha -= mlx->img->rotation_step;
 		else if (key == W)
-			mlx->camera->alpha += mlx->img->rotation_step;
+			mlx->img->camera->alpha += mlx->img->rotation_step;
 		else if (key == A)
-			mlx->camera->beta -= mlx->img->rotation_step;
+			mlx->img->camera->beta -= mlx->img->rotation_step;
 		else if (key == S)
-			mlx->camera->beta += mlx->img->rotation_step;
+			mlx->img->camera->beta += mlx->img->rotation_step;
 		else if (key == Z)
-			mlx->camera->gamma -= mlx->img->rotation_step;
+			mlx->img->camera->gamma -= mlx->img->rotation_step;
 		else if (key == X)
-			mlx->camera->gamma += mlx->img->rotation_step;
-		normalize_degree_value(mlx->camera);
-        check_image_front(mlx->camera);
+			mlx->img->camera->gamma += mlx->img->rotation_step;
+		normalize_degree_value(mlx->img->camera);
+        check_image_front(mlx->img->camera);
 		i++;
 	}
 }

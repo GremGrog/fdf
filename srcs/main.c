@@ -17,16 +17,16 @@
 void	set_default(t_img *img)
 {
 	int i;
-	t_coord	*arr;
+	t_point	*arr;
 
 	i = 0;
-	arr = (t_coord*)malloc((sizeof(t_coord) * img->grid_square));
+	arr = (t_point*)malloc((sizeof(t_point) * img->grid_square));
 	while(i < img->grid_square)
 	{
-		arr[i] = img->dot[i];
+		arr[i] = img->point[i];
 		i++;
 	}
-	img->def = arr;
+	img->reset_point = arr;
 }
 
 void	reset(t_mlx *mlx)
@@ -37,12 +37,12 @@ void	reset(t_mlx *mlx)
 	
 	while(i < mlx->img->grid_square)
 	{
-		mlx->img->dot[i] = mlx->img->def[i];
+		mlx->img->point[i] = mlx->img->reset_point[i];
 		i++;
 	}
-	mlx->camera->alpha = 0;
-	mlx->camera->beta = 0;
-	mlx->camera->gamma = 0;
+	mlx->img->camera->alpha = 0;
+	mlx->img->camera->beta = 0;
+	mlx->img->camera->gamma = 0;
 	mlx->img->margin_x = MARGIN_X;
 	mlx->img->margin_y = MARGIN_Y;
 }

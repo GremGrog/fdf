@@ -1,6 +1,6 @@
 #include "../fdf.h"
 
-void	calc_iso(t_coord *d)
+void	calc_iso(t_point *d)
 {
 	int previous_x;
     int previous_y;
@@ -18,7 +18,7 @@ void	isometry(t_img *img)
 	i = 0;
 	while (i < img->grid_square)
 	{
-		calc_iso(&img->dot[i]);
+		calc_iso(&img->point[i]);
 		i++;
 	}
 }

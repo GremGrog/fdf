@@ -29,7 +29,7 @@ static int get_light(int start, int end, double percentage)
     return ((int)((1 - percentage) * start + percentage * end));
 }
 
-static int gradient(t_coord start, t_coord end, t_coord delta, t_coord current)
+static int gradient(t_point start, t_point end, t_point delta, t_point current)
 {
     int     red;
     int     green;
@@ -46,7 +46,7 @@ static int gradient(t_coord start, t_coord end, t_coord delta, t_coord current)
     return ((red << 16) | (green << 8) | blue);
 }
 
-int     get_color(t_coord start, t_coord end, t_coord delta, t_coord current)
+int     get_color(t_point start, t_point end, t_point delta, t_point current)
 {
     if (start.bump && end.bump)
         return g_color_pair.bump;

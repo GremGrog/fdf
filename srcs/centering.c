@@ -29,8 +29,8 @@ void	centering_loop(t_img *img, int cube_width, int cube_height)
 		j = 0;
 		while (j < img->grid_width)
 		{
-			img->dot[i].x = start_x;
-			img->dot[i].y = start_y;
+			img->point[i].x = start_x;
+			img->point[i].y = start_y;
 			start_x += cube_width;
 			j++;
 			i++;

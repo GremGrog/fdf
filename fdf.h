@@ -65,7 +65,7 @@
 
 # define NUMBER_OF_COLOR_PAIRS 4
 
-typedef struct  s_coord
+typedef struct  s_point
 {
 	int 	x;
 	int 	y;
@@ -73,21 +73,7 @@ typedef struct  s_coord
 	int		z_shift;
 	long	color;
 	int		bump;
-}				t_coord;
-
-typedef	struct	s_img
-{
-	t_coord	*dot;
-	t_coord	*def;
-	int		grid_square;
-	int		grid_height;
-	int		grid_width;
-	int		cube_width;
-	int		cube_height;
-	int		margin_x;
-	int		margin_y;
-	double  rotation_step;
-}					t_img;
+}				t_point;
 
 typedef struct	s_cam
 {
@@ -98,10 +84,24 @@ typedef struct	s_cam
 	int		projection;
 }					t_cam;
 
+typedef	struct	s_img
+{
+	t_point	*point;
+	t_point	*reset_point;
+	t_cam	*camera;
+	int		grid_square;
+	int		grid_height;
+	int		grid_width;
+	int		cube_width;
+	int		cube_height;
+	int		margin_x;
+	int		margin_y;
+	double  rotation_step;
+}					t_img;
+
 typedef struct	s_mlx
 {
 	t_img	*img;
-	t_cam	*camera;
 	void	*ptr;
 	void	*win_ptr;
 	void	*img_ptr;
@@ -126,7 +126,7 @@ int				validate_line(char *line);
 
 void			set_rotation_step(t_img *img);
 
-int				get_color(t_coord start, t_coord end, t_coord delta, t_coord current);
+int				get_color(t_point start, t_point end, t_point delta, t_point current);
 void        	change_color_pair(void);
 
 void    		check_image_front(t_cam *camera);
@@ -135,12 +135,12 @@ int				key_press(int key, void *param);
 int				red_button(void *param);
 
 void			centering(t_img *img);
-void			bresenham_alg(t_mlx *mlx, t_coord d1, t_coord d2);
+void			bresenham_alg(t_mlx *mlx, t_point d1, t_point d2);
 void			connect_lines(t_mlx *mlx, t_img *img);
 
-void			rotate_x(t_coord *d, t_cam *camera);
-void			rotate_y(t_coord *d, t_cam *camera);
-void			rotate_z(t_coord *d, t_cam *camera);
+void			rotate_x(t_point *d, t_cam *camera);
+void			rotate_y(t_point *d, t_cam *camera);
+void			rotate_z(t_point *d, t_cam *camera);
 
 void			isometry(t_img *img);
 void			rotate_figure(int key, t_mlx *mlx);

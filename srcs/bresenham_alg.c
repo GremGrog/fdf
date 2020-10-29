@@ -12,10 +12,10 @@
 
 #include "../fdf.h"
 
-void	bresenham_alg(t_mlx *mlx, t_coord d1_actual, t_coord d2_actual)
+void	bresenham_alg(t_mlx *mlx, t_point d1_actual, t_point d2_actual)
 {
-	t_coord delta;
-	t_coord current;
+	t_point delta;
+	t_point current;
 	int deltaError;
 	int error;
 
@@ -58,9 +58,9 @@ void	connect_lines(t_mlx *mlx, t_img *img)
 	i = 0;
 	while (i < img->grid_square)
 	{
-		rotate_x(&(mlx->img->dot[i]), mlx->camera);
-		rotate_y(&(mlx->img->dot[i]), mlx->camera);
-		rotate_z(&(mlx->img->dot[i]), mlx->camera);
+		rotate_x(&(mlx->img->point[i]), mlx->img->camera);
+		rotate_y(&(mlx->img->point[i]), mlx->img->camera);
+		rotate_z(&(mlx->img->point[i]), mlx->img->camera);
 		i++;
 	}
 	i = 0;
@@ -71,10 +71,10 @@ void	connect_lines(t_mlx *mlx, t_img *img)
 		{
 			// horizontal
 			if (j < img->grid_width - 1)
-				bresenham_alg(mlx, img->dot[i * img->grid_width + j], img->dot[(i * img->grid_width + j) + 1]);
+				bresenham_alg(mlx, img->point[i * img->grid_width + j], img->point[(i * img->grid_width + j) + 1]);
 			// vertical
 			if (i < img->grid_height - 1)
-				bresenham_alg(mlx, img->dot[i * img->grid_width + j], img->dot[(i + 1) * img->grid_width + j]);
+				bresenham_alg(mlx, img->point[i * img->grid_width + j], img->point[(i + 1) * img->grid_width + j]);
 			j++;
 		}
 		i++;

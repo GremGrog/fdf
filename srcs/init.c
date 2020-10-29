@@ -40,6 +40,8 @@ t_img	*init_img()
 
 	if (!(img = (t_img*)malloc(sizeof(t_img))))
 		return NULL;
+	if ((img->camera = init_camera()) == NULL)
+		return NULL;
 	img->grid_height = 0;
 	img->grid_square = 0;
 	img->grid_width = 0;
@@ -48,7 +50,7 @@ t_img	*init_img()
 	img->margin_x = MARGIN_X;
 	img->margin_y = MARGIN_Y;
 	img->rotation_step = BASIC_ROTATION_STEP;
-	img->dot = NULL;
+	img->point = NULL;
 	return (img);
 }
 
@@ -59,8 +61,6 @@ t_mlx	*init_mlx()
 	if (!(mlx = (t_mlx*)malloc(sizeof(t_mlx))))
 		return NULL;
 	if ((mlx->img = init_img()) == NULL)
-		return NULL;
-	if ((mlx->camera = init_camera()) == NULL)
 		return NULL;
 	mlx->ptr = NULL;
 	mlx->win_ptr = NULL;
