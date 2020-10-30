@@ -56,14 +56,6 @@ void	connect_lines(t_mlx *mlx, t_img *img)
 	int	j;
 
 	i = 0;
-	while (i < img->grid_square)
-	{
-		rotate_x(&(mlx->img->point[i]), mlx->img->camera);
-		rotate_y(&(mlx->img->point[i]), mlx->img->camera);
-		rotate_z(&(mlx->img->point[i]), mlx->img->camera);
-		i++;
-	}
-	i = 0;
 	while (i < img->grid_height)
 	{
 		j = 0;

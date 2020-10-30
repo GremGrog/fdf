@@ -146,5 +146,13 @@ void			isometry(t_img *img);
 void			rotate_figure(int key, t_mlx *mlx);
 
 double			ft_radian(double degree);
-void			reset(t_mlx *mlx);
+void			reset_all(t_mlx *mlx);
+void			accept_rotation_to_image(t_mlx *mlx);
+void			save_defaults(t_img *img);
+void			change_projection(t_cam *camera);
+void			reset_to_default_coords(t_mlx *mlx);
+void			copy_point(t_point *point1, t_point *point2);
+void			zoom(int key, t_mlx *mlx);
+void			terminate(t_mlx *mlx);
+
 #endif
