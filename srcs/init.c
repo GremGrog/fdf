@@ -42,6 +42,7 @@ t_img	*init_img(void)
 		return (NULL);
 	if ((img->camera = init_camera()) == NULL)
 		return (NULL);
+	img->reset_point = NULL;
 	img->grid_height = 0;
 	img->grid_square = 0;
 	img->grid_width = 0;

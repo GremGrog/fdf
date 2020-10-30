@@ -70,3 +70,32 @@ int		validate_line(char *line)
 	}
 	return (0);
 }
+
+int		count_input_len(char *str, t_img *img)
+{
+	int		fd;
+	char	*buf;
+	int		len;
+	int		first_line_points_num;
+
+	if ((fd = open(str, O_RDONLY)) < 0)
+		return (-1);
+	first_line_points_num = -1;
+	while (get_next_line(fd, &buf) > 0)
+	{
+		if (validate_line(buf) == 0 && (len = count_words(buf)) > 0)
+		{
+			if (first_line_points_num == -1)
+				first_line_points_num = len;
+			else if (first_line_points_num != len)
+				return (-1);
+			img->grid_square += len;
+			free(buf);
+		}
+		else
+			return (-1);
+	}
+	close(fd);
+	set_rotation_step(img);
+	return (0);
+}

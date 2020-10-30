@@ -25,9 +25,12 @@ int		main(int argc, char **argv)
 	{
 		change_color_pair();
 		mlx = init_mlx();
-		if (mlx == NULL)
+		if (mlx == NULL || (input_processing(argv[1], mlx->img)) != 0)
+		{
 			terminate(mlx);
-		input_processing(argv[1], mlx->img);
+			ft_printf("Error\n");
+			exit(-1);
+		}
 		centering(mlx->img);
 		save_defaults(mlx->img);
 		isometry(mlx->img);
