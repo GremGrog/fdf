@@ -37,6 +37,8 @@ void	other_keys_presses(int key, t_mlx *mlx)
 		zoom(key, mlx);
 	else if (key == L)
 		change_color_pair();
+	else if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
+		move_image(key, mlx);
 }
 
 int		key_press(int key, void *param)

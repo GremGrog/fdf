@@ -19,10 +19,10 @@ void	bresenham_alg(t_mlx *mlx, t_point d1_actual, t_point d2_actual)
 	int deltaError;
 	int error;
 
-	d1_actual.x = WIDTH / 2 + d1_actual.x;
-	d1_actual.y = HEIGHT / 2 - d1_actual.y;
-	d2_actual.x = WIDTH / 2 + d2_actual.x;
-	d2_actual.y = HEIGHT / 2 - d2_actual.y;
+	d1_actual.x = WIDTH / 2 + d1_actual.x + d1_actual.x_shift;
+	d1_actual.y = HEIGHT / 2 - d1_actual.y - d1_actual.y_shift;
+	d2_actual.x = WIDTH / 2 + d2_actual.x + d2_actual.x_shift;
+	d2_actual.y = HEIGHT / 2 - d2_actual.y - d2_actual.y_shift;
 	delta.x = abs(d2_actual.x - d1_actual.x);
 	delta.y = abs(d2_actual.y - d1_actual.y); 
 

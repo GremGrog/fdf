@@ -45,6 +45,14 @@
 # define PLUS 24
 # define MINUS 27
 # define DELETE 51
+# define UP 126
+# define DOWN 125
+# define LEFT 123
+# define RIGHT 124
+# define LEFT_DIRECTION -1
+# define RIGHT_DIRECTION 1
+# define UP_DIRECTION 2
+# define DOWN_DIRECTION -2
 
 // change color pair
 # define L 37
@@ -70,6 +78,8 @@ typedef struct  s_point
 	int 	x;
 	int 	y;
 	int 	z;
+	int		x_shift;
+	int		y_shift;
 	int		z_shift;
 	long	color;
 	int		bump;
@@ -154,5 +164,10 @@ void			reset_to_default_coords(t_mlx *mlx);
 void			copy_point(t_point *point1, t_point *point2);
 void			zoom(int key, t_mlx *mlx);
 void			terminate(t_mlx *mlx);
+void			move_image(int key, t_mlx *mlx);
+int		 		find_upmost_point(t_img *img);
+int		 		find_lowest_point(t_img *img);
+int		 		find_leftmost_point(t_img *img);
+int		 		find_rightmost_point(t_img *img);
 
 #endif

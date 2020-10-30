@@ -39,7 +39,6 @@ void	save_defaults(t_img *img)
 	arr = (t_point*)malloc((sizeof(t_point) * img->grid_square));
 	while(i < img->grid_square)
 	{
-		// copy_point(&arr[i], &img->point[i]);
 		arr[i] = img->point[i];
 		i++;
 	}
