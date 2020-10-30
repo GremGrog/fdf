@@ -42,7 +42,8 @@ SRCS = 	main.c \
 		helpers.c \
 		image_transformations.c \
 		reset.c \
-		find_point.c
+		find_point.c \
+		move_image.c
 
 OBJF = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SRCS)))
 
