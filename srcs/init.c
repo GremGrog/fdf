@@ -20,28 +20,28 @@ void	set_rotation_step(t_img *img)
 		img->rotation_step /= 10.0;
 }
 
-t_cam	*init_camera()
+t_cam	*init_camera(void)
 {
 	t_cam	*cam;
 
 	if (!(cam = (t_cam*)malloc(sizeof(t_cam))))
-		return NULL;
+		return (NULL);
 	cam->alpha = 0.0;
 	cam->beta = 0.0;
 	cam->gamma = 0.0;
 	cam->front = TRUE;
 	cam->projection = ISO;
-	return cam;
+	return (cam);
 }
 
-t_img	*init_img()
+t_img	*init_img(void)
 {
 	t_img	*img;
 
 	if (!(img = (t_img*)malloc(sizeof(t_img))))
-		return NULL;
+		return (NULL);
 	if ((img->camera = init_camera()) == NULL)
-		return NULL;
+		return (NULL);
 	img->grid_height = 0;
 	img->grid_square = 0;
 	img->grid_width = 0;
@@ -54,14 +54,14 @@ t_img	*init_img()
 	return (img);
 }
 
-t_mlx	*init_mlx()
+t_mlx	*init_mlx(void)
 {
 	t_mlx	*mlx;
 
 	if (!(mlx = (t_mlx*)malloc(sizeof(t_mlx))))
-		return NULL;
+		return (NULL);
 	if ((mlx->img = init_img()) == NULL)
-		return NULL;
+		return (NULL);
 	mlx->ptr = NULL;
 	mlx->win_ptr = NULL;
 	mlx->img_ptr = NULL;
@@ -71,7 +71,8 @@ t_mlx	*init_mlx()
 	mlx->endian = 0;
 	mlx->ptr = mlx_init();
 	mlx->win_ptr = mlx_new_window(mlx->ptr, WIDTH, HEIGHT, WINDOW_NAME);
-	mlx->img_ptr = mlx_new_image (mlx->ptr, WIDTH, HEIGHT);
-	mlx->data = (int*)mlx_get_data_addr(mlx->img_ptr, &mlx->bbp, &mlx->size_line, &mlx->endian);
+	mlx->img_ptr = mlx_new_image(mlx->ptr, WIDTH, HEIGHT);
+	mlx->data = (int*)mlx_get_data_addr(mlx->img_ptr, &mlx->bbp,\
+												&mlx->size_line, &mlx->endian);
 	return (mlx);
 }

@@ -15,12 +15,12 @@
 int		in_hex(char c)
 {
 	if (ft_isdigit(c) == 1)
-		return 1;
+		return (1);
 	if (c >= 'a' && c <= 'f')
-		return 1;
+		return (1);
 	if (c >= 'A' && c <= 'F')
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 int		validate_color(char *line, int i)
@@ -55,7 +55,8 @@ int		validate_line(char *line)
 				return (-1);
 			i++;
 		}
-		if (ft_isdigit(line[i]) == 1 || (line[i] == '-' && ft_isdigit(line[i + 1]) == 1))
+		if (ft_isdigit(line[i]) == 1 ||\
+					(line[i] == '-' && ft_isdigit(line[i + 1]) == 1))
 		{
 			i++;
 			if (line[i] == ',')

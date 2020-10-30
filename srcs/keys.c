@@ -9,7 +9,7 @@ void	handle_heigth_change(int key, t_mlx *mlx)
 	{
 		if (mlx->img->point[i].bump == TRUE)
 		{
-			if (key == R && mlx->img->point[i].z_shift <= MAX_HEIGHT) 
+			if (key == R && mlx->img->point[i].z_shift <= MAX_HEIGHT)
 			{
 				mlx->img->point[i].z++;
 				mlx->img->point[i].z_shift++;
@@ -50,7 +50,8 @@ int		key_press(int key, void *param)
 	centering(mlx->img);
 	if (key == R || key == F)
 		handle_heigth_change(key, mlx);
-	else if (key == Q || key == W || key == A || key == S || key == Z || key == X)
+	else if (key == Q || key == W || key == A ||\
+										key == S || key == Z || key == X)
 		rotate_figure(key, mlx);
 	else if (key == SPACE)
 		change_projection(mlx->img->camera);
@@ -64,11 +65,11 @@ int		key_press(int key, void *param)
 	return (0);
 }
 
-int red_button(void *param)
+int		red_button(void *param)
 {
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)param;
-	// terminate()
+	terminate(mlx);
 	exit(1);
 }

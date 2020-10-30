@@ -5,8 +5,7 @@ void	reset_all(t_mlx *mlx)
 	int i;
 
 	i = 0;
-	
-	while(i < mlx->img->grid_square)
+	while (i < mlx->img->grid_square)
 	{
 		mlx->img->point[i] = mlx->img->reset_point[i];
 		i++;
