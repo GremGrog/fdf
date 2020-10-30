@@ -12,12 +12,39 @@
 
 #include "../fdf.h"
 
+void		bresenham_loop(t_point delta, t_mlx *mlx,\
+					t_point d1_actual, t_point d2_actual)
+{
+	int		delta_error;
+	int		error;
+	t_point	cur;
+
+	delta_error = (delta.x > delta.y ? delta.x : -delta.y) / 2;
+	error = delta_error;
+	cur.x = d1_actual.x;
+	cur.y = d1_actual.y;
+	while (!(cur.x == d2_actual.x && cur.y == d2_actual.y))
+	{
+		if ((cur.y <= HEIGHT && cur.y >= 0) && (cur.x <= WIDTH && cur.x >= 0))
+			mlx->data[cur.y * WIDTH + cur.x] = \
+					get_color(d1_actual, d2_actual, delta, cur);
+		error = delta_error;
+		if (error > -delta.x)
+		{
+			delta_error -= delta.y;
+			cur.x += (d1_actual.x < d2_actual.x) ? 1 : -1;
+		}
+		if (error < delta.y)
+		{
+			delta_error += delta.x;
+			cur.y += (d1_actual.y < d2_actual.y) ? 1 : -1;
+		}
+	}
+}
+
 void		bresenham_alg(t_mlx *mlx, t_point d1_actual, t_point d2_actual)
 {
 	t_point	delta;
-	t_point	current;
-	int		delta_error;
-	int		error;
 
 	d1_actual.x = WIDTH / 2 + d1_actual.x + d1_actual.x_shift;
 	d1_actual.y = HEIGHT / 2 - d1_actual.y - d1_actual.y_shift;
@@ -25,30 +52,7 @@ void		bresenham_alg(t_mlx *mlx, t_point d1_actual, t_point d2_actual)
 	d2_actual.y = HEIGHT / 2 - d2_actual.y - d2_actual.y_shift;
 	delta.x = abs(d2_actual.x - d1_actual.x);
 	delta.y = abs(d2_actual.y - d1_actual.y);
-	delta_error = (delta.x > delta.y ? delta.x : -delta.y) / 2;
-	error = delta_error;
-	current.x = d1_actual.x;
-	current.y = d1_actual.y;
-	while (1)
-	{
-		if ((current.y <= HEIGHT && current.y >= 0) &&\
-							(current.x <= WIDTH && current.x >= 0))
-			mlx->data[current.y * WIDTH + current.x] = \
-							get_color(d1_actual, d2_actual, delta, current);
-		if (current.x == d2_actual.x && current.y == d2_actual.y)
-			break ;
-		error = delta_error;
-		if (error > -delta.x)
-		{
-			delta_error -= delta.y;
-			current.x += (d1_actual.x < d2_actual.x) ? 1 : -1;
-		}
-		if (error < delta.y)
-		{
-			delta_error += delta.x;
-			current.y += (d1_actual.y < d2_actual.y) ? 1 : -1;
-		}
-	}
+	bresenham_loop(delta, mlx, d1_actual, d2_actual);
 }
 
 void		connect_lines(t_mlx *mlx, t_img *img)
