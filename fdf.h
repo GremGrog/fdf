@@ -15,8 +15,8 @@
 
 # include "Libft/libft.h"
 # include <math.h>
-// # include "mlx.h"
-# include "/usr/X11/include/mlx.h"
+# include "mlx.h"
+// # include "/usr/X11/include/mlx.h"
 
 // # define WIDTH 1500
 # define WIDTH 1200
@@ -140,7 +140,7 @@ void			set_rotation_step(t_img *img);
 int				get_color(t_point start, t_point end, t_point delta, t_point current);
 void        	change_color_pair(void);
 
-void			setting_color_parameters(t_img *img);
+void			setting_parameters(t_img *img);
 int				*earth_color_set(t_color *color);
 void			apply_color_set(t_img *img, int *color_set);
 

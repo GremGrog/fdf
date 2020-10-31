@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 		// }
 		input_processing(argv[1], mlx->img);
 
-		setting_color_parameters(mlx->img);
+		setting_parameters(mlx->img);
 
 		centering(mlx->img);
 		set_default(mlx->img);

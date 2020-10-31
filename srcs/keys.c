@@ -7,7 +7,7 @@ void	handle_heigth_change(int key, t_mlx *mlx)
 	i = 0;
 	while (i < mlx->img->grid_square)
 	{
-		if (mlx->img->point[i].bump == TRUE)
+		if (mlx->img->point[i].bump)
 		{
 			if (key == R && mlx->img->point[i].z_shift <= MAX_SHIFT_HEIGHT) 
 			{

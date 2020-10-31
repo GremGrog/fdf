@@ -29,8 +29,8 @@ static int	most_frequent_z(t_img *img, int min)
 
 static void apply_color_set_first(t_img *img, int *color_set)
 {
-    int     i;
-    int     j;
+	int     i;
+	int     j;
 
 	// if (color_set == NULL)
 		// terminate(img);
@@ -44,54 +44,61 @@ static void apply_color_set_first(t_img *img, int *color_set)
 	}
 	ft_printf("\n");
 	
-    i = -1;
-    while (++i < img->grid_square)
-    {
+	i = -1;
+	while (++i < img->grid_square)
+	{
 		if (img->point[i].color != 0)
 			continue ;
 		j = 0;
 		while (j < img->color->size && img->point[i].z >= img->color->relief_color_borders[j])
 			img->point[i].color = color_set[j++];
-    }
+	}
 }
 
 static int  calculate_relief(t_color *color, int max, int min, int most)
 {
-    int     step;
-    int     border;
-    int     j;
+	int     step;
+	int     border;
+	int     j;
 
-    step = ft_ceil((double)(max - min) / MAX_NUMBER_OF_COLORS);
-    border = min;
-    j = 0;
-    while (border < max)
-    {
+	step = ft_ceil((double)(max - min) / MAX_NUMBER_OF_COLORS);
+	border = min;
+	j = 0;
+	while (border < max)
+	{
 		if (most >= border && most < border + step)
 		{
 			color->relief_color_borders[j] = most;
 			color->base_color_index = j;
 		}
 		else
-        	color->relief_color_borders[j] = border;
-        border += step;
+			color->relief_color_borders[j] = border;
+		border += step;
 		j++;
-    }
+	}
 	if (max == most)
 		color->base_color_index = j;
-    color->relief_color_borders[j] = max;
-
-	int i = 0;
-	ft_printf("borders: ");
-	while (i < j)
-		ft_printf("%d ", color->relief_color_borders[i++]);
-	ft_printf("\n");
-    return j;
+	color->relief_color_borders[j] = max;
+	return j;
 }
 
-void        setting_color_parameters(t_img *img)
+static void	set_bump(t_img *img, int most)
 {
-    int     size;
-    int     most;
+	int		i;
+
+	i = 0;
+	while(i < img->grid_square)
+	{
+		if (img->point[i].z != most)
+			img->point[i].bump = 1;
+		i++;
+	}
+}
+
+void        setting_parameters(t_img *img)
+{
+	int     size;
+	int     most;
 	int		min;
 
 	img->color = init_color();
@@ -99,8 +106,8 @@ void        setting_color_parameters(t_img *img)
 		// terminate(img);
 	min = min_z(img);
 	most = most_frequent_z(img, min);
-	ft_printf("min: %d most: %d\n", min, most);
-    size = calculate_relief(img->color, max_z(img), min, most);
+	size = calculate_relief(img->color, max_z(img), min, most);
 	img->color->size = size;
-    apply_color_set_first(img, earth_color_set(img->color));
+	apply_color_set_first(img, earth_color_set(img->color));
+	set_bump(img, most);
 }
