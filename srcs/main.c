@@ -19,16 +19,8 @@ void	freee(t_mlx **mlx)
 	free((*mlx)->img_ptr);
 	free((*mlx)->win_ptr);
 	free((*mlx)->data);
-	free((*mlx)->ptr);
+	free((*mlx)->ptr);	
 	free((*mlx));
-	(*mlx)->img->point = NULL;
-	(*mlx)->img->reset_point = NULL;
-	(*mlx)->img->camera = NULL;
-	(*mlx)->img->color = NULL;
-	(*mlx)->img = NULL;
-	(*mlx)->win_ptr = NULL;
-	(*mlx)->data = NULL;
-	(*mlx)->ptr = NULL;
 	(*mlx) = NULL;
 }
 
