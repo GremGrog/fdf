@@ -42,6 +42,40 @@ int		validate_color(char *line, int i)
 	return (-1);
 }
 
+int	ft_isdigit_not_zero(int c)
+{
+	if (c >= '1' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
+
+int		validate_digit(char *line, int i)
+{
+	if (line[i] == '0' && ft_isdigit(line[i + 1]) == 0)
+		return (++i);
+	if (ft_isdigit_not_zero(line[i]))
+	{
+		while (ft_isdigit(line[i]))
+			i++;
+		return (i);
+	}
+	if (line[i] == '-' && ft_isdigit_not_zero(line[i + 1]) == 1)
+		return (++i);
+	if (line[i] == ',')
+	{
+		if ((i = validate_color(line, ++i)) == -1)
+			return (-1);
+		else
+			return (i);
+				
+	}
+	if (ft_isalpha(line[i]) == 1)
+		return (-1);
+	return (-1);
+}
+
+
 int		validate_line(char *line)
 {
 	int	i;
@@ -50,22 +84,8 @@ int		validate_line(char *line)
 	while (line[i])
 	{
 		if (ft_isspace(line[i]) == 1)
-		{
-			if (ft_isspace(line[i + 1] == 1))
-				return (-1);
 			i++;
-		}
-		if (ft_isdigit(line[i]) == 1 ||\
-					(line[i] == '-' && ft_isdigit(line[i + 1]) == 1))
-		{
-			i++;
-			if (line[i] == ',')
-			{
-				if ((i = validate_color(line, ++i)) == -1)
-					return (-1);
-			}
-		}
-		if (ft_isalpha(line[i]) == 1)
+		else if ((i = validate_digit(line, i)) < 0)
 			return (-1);
 	}
 	return (0);

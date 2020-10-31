@@ -17,9 +17,9 @@
 
 # include <math.h>
 
-// # include "mlx.h"
+# include "mlx.h"
 
-# include "/usr/X11/include/mlx.h"
+// # include "/usr/X11/include/mlx.h"
 
 // # define WIDTH 1500
 

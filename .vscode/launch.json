@@ -9,7 +9,7 @@
             "name": "clang - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/gremmsta/21school/fdf/fdf",
+            "program": "/Users/fmasha-h/fdf/fdf",
             "args": ["file"],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",

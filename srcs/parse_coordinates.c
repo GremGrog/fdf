@@ -45,7 +45,7 @@ void	add_coordinate(t_point *point, int i, int line_num, char *line)
 
 int		check_z_height(t_point *point)
 {
-	if (point->z > MAX_HEIGHT)
+	if (abs(point->z) > MAX_HEIGHT)
 		return (-1);
 	return (0);
 }
