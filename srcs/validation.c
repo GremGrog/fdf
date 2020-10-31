@@ -12,6 +12,15 @@
 
 #include "../fdf.h"
 
+static int	defer(int fd, char **buf)
+{
+	if (*buf != NULL)
+		free(*buf);
+	buf = NULL;
+	close(fd);
+	return (-1);
+}
+
 int		in_hex(char c)
 {
 	if (ft_isdigit(c) == 1)
@@ -101,6 +110,7 @@ int		count_input_len(char *str, t_img *img)
 	if ((fd = open(str, O_RDONLY)) < 0)
 		return (-1);
 	first_line_points_num = -1;
+	buf = NULL;
 	while (get_next_line(fd, &buf) > 0)
 	{
 		if (validate_line(buf) == 0 && (len = count_words(buf)) > 0)
@@ -108,14 +118,15 @@ int		count_input_len(char *str, t_img *img)
 			if (first_line_points_num == -1)
 				first_line_points_num = len;
 			else if (first_line_points_num != len)
-				return (-1);
+				return (defer(fd, &buf));
 			img->grid_square += len;
 			free(buf);
+			buf = NULL;
 		}
 		else
-			return (-1);
+			return defer(fd, &buf);
 	}
-	close(fd);
+	defer(fd, &buf);
 	set_rotation_step(img);
 	return (0);
 }

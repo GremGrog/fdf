@@ -12,19 +12,29 @@
 
 #include "../fdf.h"
 
-void	set_rotation_step(t_img *img)
+t_color		*init_color(void)
 {
-	if (img->grid_square > 1000)
-		img->rotation_step /= 10.0;
-	if (img->grid_square > 10000)
-		img->rotation_step /= 10.0;
+	t_color	*color;
+
+	if ((color = (t_color *)malloc(sizeof(t_color))) == NULL)
+		return NULL;
+	color->relief_color_borders = (int *)malloc(sizeof(int) * MAX_NUMBER_OF_COLORS);
+	if (color->relief_color_borders == NULL)
+	{
+		free(color);
+		return NULL;
+	}
+	ft_bzero(color->relief_color_borders, MAX_NUMBER_OF_COLORS);
+	color->base_color_index = 0;
+	color->size = 0;
+	return color;
 }
 
-t_cam	*init_camera(void)
+t_cam	*init_camera()
 {
 	t_cam	*cam;
 
-	if (!(cam = (t_cam*)malloc(sizeof(t_cam))))
+	if (!(cam = (t_cam *)malloc(sizeof(t_cam))))
 		return (NULL);
 	cam->alpha = 0.0;
 	cam->beta = 0.0;
@@ -38,10 +48,14 @@ t_img	*init_img(void)
 {
 	t_img	*img;
 
-	if (!(img = (t_img*)malloc(sizeof(t_img))))
+	if (!(img = (t_img *)malloc(sizeof(t_img))))
 		return (NULL);
 	if ((img->camera = init_camera()) == NULL)
+	{
+		free(img);
 		return (NULL);
+	}
+	img->point = NULL;
 	img->reset_point = NULL;
 	img->grid_height = 0;
 	img->grid_square = 0;
@@ -51,7 +65,6 @@ t_img	*init_img(void)
 	img->margin_x = MARGIN_X;
 	img->margin_y = MARGIN_Y;
 	img->rotation_step = BASIC_ROTATION_STEP;
-	img->point = NULL;
 	return (img);
 }
 
@@ -59,10 +72,13 @@ t_mlx	*init_mlx(void)
 {
 	t_mlx	*mlx;
 
-	if (!(mlx = (t_mlx*)malloc(sizeof(t_mlx))))
+	if (!(mlx = (t_mlx *)malloc(sizeof(t_mlx))))
 		return (NULL);
 	if ((mlx->img = init_img()) == NULL)
+	{
+		free(mlx);
 		return (NULL);
+	}
 	mlx->ptr = NULL;
 	mlx->win_ptr = NULL;
 	mlx->img_ptr = NULL;
@@ -74,6 +90,6 @@ t_mlx	*init_mlx(void)
 	mlx->win_ptr = mlx_new_window(mlx->ptr, WIDTH, HEIGHT, WINDOW_NAME);
 	mlx->img_ptr = mlx_new_image(mlx->ptr, WIDTH, HEIGHT);
 	mlx->data = (int*)mlx_get_data_addr(mlx->img_ptr, &mlx->bbp,\
-												&mlx->size_line, &mlx->endian);
+		&mlx->size_line, &mlx->endian);
 	return (mlx);
 }

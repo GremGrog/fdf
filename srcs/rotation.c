@@ -1,5 +1,13 @@
 #include "../fdf.h"
 
+void	set_rotation_step(t_img *img)
+{
+	if (img->grid_square > 1000)
+		img->rotation_step /= 10.0;
+	if (img->grid_square > 10000)
+		img->rotation_step /= 10.0;
+}
+
 void	rotate_x(t_point *d, t_cam *camera)
 {
 	int previous_y;

@@ -31,17 +31,17 @@ void	copy_point(t_point *point1, t_point *point2)
 	point1->bump = point2->bump;
 }
 
-void	save_defaults(t_img *img)
+void	save_reset_point(t_mlx *mlx)
 {
 	int		i;
-	t_point	*arr;
 
 	i = 0;
-	arr = (t_point*)malloc((sizeof(t_point) * img->grid_square));
-	while (i < img->grid_square)
+	mlx->img->reset_point = (t_point *)malloc((sizeof(t_point) * mlx->img->grid_square));
+	if (mlx->img->reset_point == NULL)
+		terminate(&mlx);
+	while (i < mlx->img->grid_square)
 	{
-		arr[i] = img->point[i];
+		mlx->img->reset_point[i] = mlx->img->point[i];
 		i++;
 	}
-	img->reset_point = arr;
 }

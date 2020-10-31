@@ -38,6 +38,9 @@ SRCS = 	main.c \
 		isometry.c \
 		rotation.c \
 		color.c \
+		color_sets.c \
+		color_settings.c \
+		tools.c \
 		keys.c \
 		helpers.c \
 		image_transformations.c \

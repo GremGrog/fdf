@@ -16,9 +16,7 @@
 # include "Libft/libft.h"
 
 # include <math.h>
-
 # include "mlx.h"
-
 // # include "/usr/X11/include/mlx.h"
 
 // # define WIDTH 1500
@@ -31,7 +29,10 @@
 # define RESOLUTION WIDTH * HEIGHT
 
 # define BASIC_ROTATION_STEP 0.02
-# define MAX_HEIGHT 50
+
+# define MAX_SHIFT_HEIGHT 50
+# define MAX_Z 100
+# define MAX_NUMBER_OF_COLORS 10
 
 # define MARGIN_Y (HEIGHT / 100 * 35)
 # define MARGIN_X (WIDTH / 100 * 35)
@@ -72,6 +73,7 @@
 # define GREEN_COLOR (0 << 16 | 255 << 8 | 0)
 # define BLUE_COLOR (0 << 16 | 0 << 8 | 255)
 # define RED_COLOR (255 << 16 | 97 << 8 | 97)
+# define WHITE_COLOR (255 << 16 | 255 << 8 | 255)
 
 # define NUMBER_OF_COLOR_PAIRS 4
 
@@ -83,7 +85,7 @@ typedef struct		s_point
 	int		x_shift;
 	int		y_shift;
 	int		z_shift;
-	long	color;
+	int		color;
 	int		bump;
 }					t_point;
 
@@ -96,11 +98,19 @@ typedef struct		s_cam
 	int		projection;
 }					t_cam;
 
-typedef	struct		s_img
+typedef struct s_color
+{
+	int			*relief_color_borders;
+	int			size;
+	int			base_color_index;
+}				t_color;
+
+typedef	struct	s_img
 {
 	t_point	*point;
 	t_point	*reset_point;
 	t_cam	*camera;
+	t_color *color;
 	int		grid_square;
 	int		grid_height;
 	int		grid_width;
@@ -123,50 +133,52 @@ typedef struct		s_mlx
 	int		endian;
 }					t_mlx;
 
-typedef struct		s_colorpair
-{
-	int		base;
-	int		bump;
-}					t_colorpair;
+t_img			*init_img();
+t_mlx			*init_mlx();
+t_color			*init_color(void);
 
-t_colorpair			g_color_pair;
+void			terminate(t_mlx **mlx);
 
-t_img				*init_img();
-t_mlx				*init_mlx();
-int					input_processing(char *str, t_img *img);
-int					validate_line(char *line);
+int				input_processing(char *str, t_mlx *mlx);
+int				validate_line(char *line);
 
-void				set_rotation_step(t_img *img);
+void			set_rotation_step(t_img *img);
 
-int					get_color(t_point start, t_point end,\
-										t_point delta, t_point current);
-void				change_color_pair(void);
+int				get_color(t_point start, t_point end, t_point delta, t_point current);
 
-void				check_image_front(t_cam *camera);
-double				convert_degree(double degree);
-int					key_press(int key, void *param);
-int					red_button(void *param);
+void			setting_parameters(t_mlx *mlx);
+int				*earth_color_set(t_color *color);
+void			apply_color_set(t_img *img, int *color_set);
 
-void				centering(t_img *img);
-void				bresenham_alg(t_mlx *mlx, t_point d1, t_point d2);
-void				connect_lines(t_mlx *mlx, t_img *img);
+void    		check_image_front(t_cam *camera);
+double  		convert_degree(double degree);
+int				key_press(int key, void *param);
+int				red_button(void *param);
 
-void				rotate_x(t_point *d, t_cam *camera);
-void				rotate_y(t_point *d, t_cam *camera);
-void				rotate_z(t_point *d, t_cam *camera);
+void			centering(t_mlx *mlx);
+void			bresenham_alg(t_mlx *mlx, t_point d1, t_point d2);
+void			connect_lines(t_mlx *mlx, t_img *img);
 
-void				isometry(t_img *img);
-void				rotate_figure(int key, t_mlx *mlx);
+void			rotate_x(t_point *d, t_cam *camera);
+void			rotate_y(t_point *d, t_cam *camera);
+void			rotate_z(t_point *d, t_cam *camera);
 
-double				ft_radian(double degree);
+void			isometry(t_img *img);
+void			rotate_figure(int key, t_mlx *mlx);
+
+double			ft_radian(double degree);
+void			reset(t_mlx *mlx);
+
+int				min_z(t_img *img);
+int				max_z(t_img *img);
+int				ft_ceil(double num);
 void				reset_all(t_mlx *mlx);
 void				accept_rotation_to_image(t_mlx *mlx);
-void				save_defaults(t_img *img);
+void				save_reset_point(t_mlx *mlx);
 void				change_projection(t_cam *camera);
 void				reset_to_default_coords(t_mlx *mlx);
 void				copy_point(t_point *point1, t_point *point2);
 void				zoom(int key, t_mlx *mlx);
-void				terminate(t_mlx *mlx);
 void				move_image(int key, t_mlx *mlx);
 int					find_upmost_point(t_img *img);
 int					find_lowest_point(t_img *img);
@@ -175,5 +187,6 @@ int					find_rightmost_point(t_img *img);
 int					count_input_len(char *str, t_img *img);
 int					parse_coords_in_line(char *str, t_point *point,\
 										int line_num, int point_index);
+void				freee(t_mlx **mlx);
 
 #endif

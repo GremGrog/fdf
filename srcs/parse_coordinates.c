@@ -1,6 +1,17 @@
 
 #include "../fdf.h"
 
+static int defer(char ***line)
+{
+	if (*line != NULL)
+	{
+		del_matrix(*line);
+		free(*line);
+	}
+	*line = NULL;
+	return (-1);
+}
+
 void	add_color(char *str, t_point *point)
 {
 	char	**arr;
@@ -18,8 +29,7 @@ void	add_color(char *str, t_point *point)
 			(point)->z = ft_atoi(arr[i]);
 		i++;
 	}
-	del_matrix(arr);
-	free(arr);
+	defer(&arr);
 }
 
 void	add_coordinate(t_point *point, int i, int line_num, char *line)
@@ -29,29 +39,25 @@ void	add_coordinate(t_point *point, int i, int line_num, char *line)
 	point->x_shift = 0;
 	point->y_shift = 0;
 	point->z_shift = 0;
+	point->bump = 0;
+	point->color = 0;
 	point->x = i;
 	point->y = line_num;
 	if ((char*)ft_strchr(line, ',') != NULL)
 		add_color(line, point);
 	else
-	{
 		point->z = ft_atoi(line);
-		point->bump = 0;
-		if (point->z != 0)
-			point->bump = 1;
-		point->color = 25343;
-	}
 }
 
 int		check_z_height(t_point *point)
 {
-	if (abs(point->z) > MAX_HEIGHT)
+	if (abs(point->z) > MAX_Z)
 		return (-1);
 	return (0);
 }
 
 int		parse_coords_in_line(char *str, t_point *point,\
-										int line_num, int point_index)
+			int line_num, int point_index)
 {
 	int		i;
 	int		j;
@@ -64,15 +70,10 @@ int		parse_coords_in_line(char *str, t_point *point,\
 	{
 		add_coordinate(&point[j], i, line_num, line[i]);
 		if ((check_z_height(&point[j])) < 0)
-		{
-			del_matrix(line);
-			free(line);
-			return (-1);
-		}
+			return (defer(&line));
 		i++;
 		j++;
 	}
-	del_matrix(line);
-	free(line);
+	defer(&line);
 	return (j);
 }
