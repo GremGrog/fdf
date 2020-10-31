@@ -12,6 +12,16 @@
 
 #include "../fdf.h"
 
+static int defer(int fd, char **buf)
+{
+	ft_printf("defer input processing\n");
+	if (*buf != NULL)
+		free(*buf);
+	buf = NULL;
+	close(fd);
+	return (-1);
+}
+
 int		read_input(char *str, t_img *img)
 {
 	int		fd;
@@ -20,35 +30,33 @@ int		read_input(char *str, t_img *img)
 
 	point_index = 0;
 	fd = open(str, O_RDONLY);
+	buf = NULL;
 	while (get_next_line(fd, &buf) > 0)
 	{
 		if (buf)
 		{
 			if ((point_index = parse_coords_in_line(buf, \
-				img->point, img->grid_height, point_index)) == -1)
-			{
-				close(fd);
-				free(buf);
-				return (-1);
-			}
+					img->point, img->grid_height, point_index)) == -1)
+				return (defer(fd, &buf));
 			img->grid_height++;
 			free(buf);
+			buf = NULL;
 		}
 	}
-	close(fd);
+	defer(fd, &buf);
 	return (0);
 }
 
-int		input_processing(char *str, t_img *img)
+int		input_processing(char *str, t_mlx *mlx)
 {
-	if (!img)
-		exit(-1);
-	if (count_input_len(str, img) < 0)
-	{
-		ft_printf("Error\n");
-		exit(-1);
-	}
-	if (!(img->point = (t_point*)malloc(sizeof(t_point) * img->grid_square)))
-		exit(-1);
-	return (read_input(str, img));
+	int	flag;
+
+	if (count_input_len(str, mlx->img) < 0)
+		terminate(&mlx);
+	if (!(mlx->img->point = (t_point*)malloc(sizeof(t_point) * mlx->img->grid_square)))
+		terminate(&mlx);
+	flag = read_input(str, mlx->img);
+	if (mlx->img->grid_square % mlx->img->grid_height != 0)
+		terminate(&mlx);
+	return (flag);
 }

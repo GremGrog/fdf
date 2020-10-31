@@ -1,18 +1,5 @@
 #include "../fdf.h"
 
-void			change_color_pair(void)
-{
-	static	int	i = 0;
-	t_colorpair	color_array[NUMBER_OF_COLOR_PAIRS];
-
-	color_array[0] = (t_colorpair){BLUE_COLOR, RED_COLOR};
-	color_array[1] = (t_colorpair){PINK_COLOR, YELLOW_COLOR};
-	color_array[2] = (t_colorpair){PURPLE_COLOR, PINK_COLOR};
-	color_array[3] = (t_colorpair){BLUE_COLOR, GREEN_COLOR};
-	g_color_pair = color_array[i];
-	i = (i + 1) % NUMBER_OF_COLOR_PAIRS;
-}
-
 static double	percent(int start, int end, int current)
 {
 	double placement;

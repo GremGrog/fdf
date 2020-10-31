@@ -40,22 +40,17 @@ void	centering_loop(t_img *img, int cube_width, int cube_height)
 	}
 }
 
-void	centering(t_img *img)
+void	centering(t_mlx *mlx)
 {
-	if (img->grid_square % img->grid_height != 0)
-	{
-		ft_printf("Error\n");
-		exit(-1);
-	}
-	img->grid_width = img->grid_square / img->grid_height;
-	if (img->grid_height == 1)
-		img->cube_height = (HEIGHT - img->margin_y * 2);
+	mlx->img->grid_width = mlx->img->grid_square / mlx->img->grid_height;
+	if (mlx->img->grid_height == 1)
+		mlx->img->cube_height = (HEIGHT - mlx->img->margin_y * 2);
 	else
-		img->cube_height = (HEIGHT - img->margin_y * 2) \
-		/ (img->grid_height - 1);
-	if (img->grid_width == 1)
-		img->cube_width = (WIDTH - img->margin_x * 2);
+		mlx->img->cube_height = (HEIGHT - mlx->img->margin_y * 2) \
+			/ (mlx->img->grid_height - 1);
+	if (mlx->img->grid_width == 1)
+		mlx->img->cube_width = (WIDTH - mlx->img->margin_x * 2);
 	else
-		img->cube_width = (WIDTH - img->margin_x * 2) / (img->grid_width - 1);
-	centering_loop(img, img->cube_width, img->cube_height);
+		mlx->img->cube_width = (WIDTH - mlx->img->margin_x * 2) / (mlx->img->grid_width - 1);
+	centering_loop(mlx->img, mlx->img->cube_width, mlx->img->cube_height);
 }

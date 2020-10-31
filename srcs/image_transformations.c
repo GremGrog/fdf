@@ -36,5 +36,5 @@ void	zoom(int key, t_mlx *mlx)
 		mlx->img->margin_x += 10;
 		mlx->img->margin_y += 10;
 	}
-	centering(mlx->img);
+	centering(mlx);
 }

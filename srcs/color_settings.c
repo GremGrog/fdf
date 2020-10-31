@@ -24,25 +24,27 @@ static int	most_frequent_z(t_img *img, int min)
 		}
 		i++;
 	}
-	return most;
+	return (most);
 }
 
-static void apply_color_set_first(t_img *img, int *color_set)
+static void apply_color_set_first(t_mlx *mlx, int *color_set)
 {
 	int     i;
 	int     j;
 
-	// if (color_set == NULL)
-		// terminate(img);
+	if (color_set == NULL)
+		terminate(&mlx);
 	i = -1;
-	while (++i < img->grid_square)
+	while (++i < mlx->img->grid_square)
 	{
-		if (img->point[i].color != 0)
+		if (mlx->img->point[i].color != 0)
 			continue ;
 		j = 0;
-		while (j < img->color->size && img->point[i].z >= img->color->relief_color_borders[j])
-			img->point[i].color = color_set[j++];
+		while (j < mlx->img->color->size && mlx->img->point[i].z >= mlx->img->color->relief_color_borders[j])
+			mlx->img->point[i].color = color_set[j++];
 	}
+	free(color_set);
+	color_set = NULL;
 }
 
 static int  calculate_relief(t_color *color, int max, int min, int most)
@@ -69,7 +71,7 @@ static int  calculate_relief(t_color *color, int max, int min, int most)
 	if (max == most)
 		color->base_color_index = j;
 	color->relief_color_borders[j] = max;
-	return j;
+	return (j);
 }
 
 static void	set_bump(t_img *img, int most)
@@ -77,7 +79,7 @@ static void	set_bump(t_img *img, int most)
 	int		i;
 
 	i = 0;
-	while(i < img->grid_square)
+	while (i < img->grid_square)
 	{
 		if (img->point[i].z != most)
 			img->point[i].bump = 1;
@@ -85,19 +87,18 @@ static void	set_bump(t_img *img, int most)
 	}
 }
 
-void        setting_parameters(t_img *img)
+void        setting_parameters(t_mlx *mlx)
 {
 	int     size;
 	int     most;
 	int		min;
 
-	img->color = init_color();
-	// if ((img->color = init_color()) == NULL)
-		// terminate(img);
-	min = min_z(img);
-	most = most_frequent_z(img, min);
-	size = calculate_relief(img->color, max_z(img), min, most);
-	img->color->size = size;
-	apply_color_set_first(img, earth_color_set(img->color));
-	set_bump(img, most);
+	if ((mlx->img->color = init_color()) == NULL)
+		terminate(&mlx);
+	min = min_z(mlx->img);
+	most = most_frequent_z(mlx->img, min);
+	size = calculate_relief(mlx->img->color, max_z(mlx->img), min, most);
+	mlx->img->color->size = size;
+	apply_color_set_first(mlx, earth_color_set(mlx->img->color));
+	set_bump(mlx->img, most);
 }
