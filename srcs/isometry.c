@@ -2,17 +2,17 @@
 
 void	calc_iso(t_point *d)
 {
-	int previous_x;
-    int previous_y;
+	int	previous_x;
+	int	previous_y;
 
-    previous_x = d->x;
-    previous_y = d->y;
-    d->x = previous_x + (previous_x + previous_y) * cos(ft_radian(-30));
-    d->y = d->z + (previous_x - previous_y) * sin(ft_radian(-30));
+	previous_x = d->x;
+	previous_y = d->y;
+	d->x = previous_x + (previous_x + previous_y) * cos(ft_radian(-30));
+	d->y = d->z + (previous_x - previous_y) * sin(ft_radian(-30));
 }
 
 void	isometry(t_img *img)
-{ 
+{
 	int	i;
 
 	i = 0;

@@ -15,12 +15,12 @@
 int		in_hex(char c)
 {
 	if (ft_isdigit(c) == 1)
-		return 1;
+		return (1);
 	if (c >= 'a' && c <= 'f')
-		return 1;
+		return (1);
 	if (c >= 'A' && c <= 'F')
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 int		validate_color(char *line, int i)
@@ -55,7 +55,8 @@ int		validate_line(char *line)
 				return (-1);
 			i++;
 		}
-		if (ft_isdigit(line[i]) == 1 || (line[i] == '-' && ft_isdigit(line[i + 1]) == 1))
+		if (ft_isdigit(line[i]) == 1 ||\
+					(line[i] == '-' && ft_isdigit(line[i + 1]) == 1))
 		{
 			i++;
 			if (line[i] == ',')
@@ -67,5 +68,34 @@ int		validate_line(char *line)
 		if (ft_isalpha(line[i]) == 1)
 			return (-1);
 	}
+	return (0);
+}
+
+int		count_input_len(char *str, t_img *img)
+{
+	int		fd;
+	char	*buf;
+	int		len;
+	int		first_line_points_num;
+
+	if ((fd = open(str, O_RDONLY)) < 0)
+		return (-1);
+	first_line_points_num = -1;
+	while (get_next_line(fd, &buf) > 0)
+	{
+		if (validate_line(buf) == 0 && (len = count_words(buf)) > 0)
+		{
+			if (first_line_points_num == -1)
+				first_line_points_num = len;
+			else if (first_line_points_num != len)
+				return (-1);
+			img->grid_square += len;
+			free(buf);
+		}
+		else
+			return (-1);
+	}
+	close(fd);
+	set_rotation_step(img);
 	return (0);
 }

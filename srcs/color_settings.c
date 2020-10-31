@@ -34,16 +34,6 @@ static void apply_color_set_first(t_img *img, int *color_set)
 
 	// if (color_set == NULL)
 		// terminate(img);
-
-	ft_printf("color_set: ");
-	int b = 0;
-	while (b < MAX_NUMBER_OF_COLORS)
-	{
-		ft_printf("%d ", color_set[b]);
-		b++;
-	}
-	ft_printf("\n");
-	
 	i = -1;
 	while (++i < img->grid_square)
 	{

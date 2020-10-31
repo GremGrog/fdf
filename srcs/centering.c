@@ -45,13 +45,14 @@ void	centering(t_img *img)
 	if (img->grid_square % img->grid_height != 0)
 	{
 		ft_printf("Error\n");
-		exit (-1);
+		exit(-1);
 	}
-	img->grid_width = img->grid_square / img->grid_height; 
+	img->grid_width = img->grid_square / img->grid_height;
 	if (img->grid_height == 1)
 		img->cube_height = (HEIGHT - img->margin_y * 2);
 	else
-		img->cube_height = (HEIGHT - img->margin_y * 2) / (img->grid_height - 1);
+		img->cube_height = (HEIGHT - img->margin_y * 2) \
+		/ (img->grid_height - 1);
 	if (img->grid_width == 1)
 		img->cube_width = (WIDTH - img->margin_x * 2);
 	else

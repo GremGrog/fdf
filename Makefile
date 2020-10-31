@@ -41,7 +41,13 @@ SRCS = 	main.c \
 		color_sets.c \
 		color_settings.c \
 		tools.c \
-		keys.c 
+		keys.c \
+		helpers.c \
+		image_transformations.c \
+		reset.c \
+		find_point.c \
+		move_image.c \
+		parse_coordinates.c
 
 OBJF = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SRCS)))
 

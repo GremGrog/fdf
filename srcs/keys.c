@@ -24,12 +24,21 @@ void	handle_heigth_change(int key, t_mlx *mlx)
 	}
 }
 
-void	change_projection(t_cam *camera)
+void	other_keys_presses(int key, t_mlx *mlx)
 {
-	if (camera->projection == ISO)
-		camera->projection = CENTRAL;
-	else if (camera->projection == CENTRAL)
-		camera->projection = ISO;
+	if (key == DELETE)
+		reset_all(mlx);
+	else if (key == ESC)
+	{
+		terminate(mlx);
+		exit(1);
+	}
+	else if (key == PLUS || key == MINUS)
+		zoom(key, mlx);
+	else if (key == L)
+		change_color_pair();
+	else if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
+		move_image(key, mlx);
 }
 
 int		key_press(int key, void *param)
@@ -41,48 +50,26 @@ int		key_press(int key, void *param)
 	centering(mlx->img);
 	if (key == R || key == F)
 		handle_heigth_change(key, mlx);
-	else if (key == Q || key == W || key == A || key == S || key == Z || key == X)
+	else if (key == Q || key == W || key == A ||\
+										key == S || key == Z || key == X)
 		rotate_figure(key, mlx);
 	else if (key == SPACE)
 		change_projection(mlx->img->camera);
-	else if (key == L)
-		change_color_pair();
-	else if (key == DELETE)
-		reset(mlx);
-	else if (key == ESC)
-	{
-		// terminate()
-		exit(1);
-	}
-	else if (key == PLUS) {
-		if (mlx->img->margin_x > -100 && mlx->img->margin_y > - 100) 
-		{
-			mlx->img->margin_x -= 10;
-			mlx->img->margin_y -= 10;
-		}
-	}
-	else if (key == MINUS) {
-		if (mlx->img->margin_x < 400 && mlx->img->margin_y < 400) {
-			mlx->img->margin_x += 10;
-			mlx->img->margin_y += 10;
-		}
-	}
+	else
+		other_keys_presses(key, mlx);
 	if (mlx->img->camera->projection == ISO)
 		isometry(mlx->img);
-	
-	
-	// TODO 
-
+	accept_rotation_to_image(mlx);
 	connect_lines(mlx, mlx->img);
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
-	return 0;
+	return (0);
 }
 
-int red_button(void *param)
+int		red_button(void *param)
 {
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)param;
-	// terminate()
+	terminate(mlx);
 	exit(1);
 }

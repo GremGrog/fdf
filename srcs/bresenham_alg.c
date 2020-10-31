@@ -12,69 +12,66 @@
 
 #include "../fdf.h"
 
-void	bresenham_alg(t_mlx *mlx, t_point d1_actual, t_point d2_actual)
+void		bresenham_loop(t_point delta, t_mlx *mlx,\
+					t_point d1_actual, t_point d2_actual)
 {
-	t_point delta;
-	t_point current;
-	int deltaError;
-	int error;
+	int		delta_error;
+	int		error;
+	t_point	cur;
 
-	d1_actual.x = WIDTH / 2 + d1_actual.x;
-	d1_actual.y = HEIGHT / 2 - d1_actual.y;
-	d2_actual.x = WIDTH / 2 + d2_actual.x;
-	d2_actual.y = HEIGHT / 2 - d2_actual.y;
-	delta.x = abs(d2_actual.x - d1_actual.x);
-	delta.y = abs(d2_actual.y - d1_actual.y); 
-
-	deltaError = (delta.x > delta.y ? delta.x : -delta.y) / 2;
-	error = deltaError;
-	current.x = d1_actual.x;
-	current.y = d1_actual.y;
-	while (1)
+	delta_error = (delta.x > delta.y ? delta.x : -delta.y) / 2;
+	error = delta_error;
+	cur.x = d1_actual.x;
+	cur.y = d1_actual.y;
+	while (!(cur.x == d2_actual.x && cur.y == d2_actual.y))
 	{
-		if ((current.y <= HEIGHT && current.y >= 0) && (current.x <= WIDTH && current.x >= 0))
-			mlx->data[current.y * WIDTH + current.x] = get_color(d1_actual, d2_actual, delta, current);
-		if (current.x == d2_actual.x && current.y == d2_actual.y)
-			break ;
-		error = deltaError;
+		if ((cur.y <= HEIGHT && cur.y >= 0) && (cur.x <= WIDTH && cur.x >= 0))
+			mlx->data[cur.y * WIDTH + cur.x] = \
+					get_color(d1_actual, d2_actual, delta, cur);
+		error = delta_error;
 		if (error > -delta.x)
 		{
-			deltaError -= delta.y;
-			current.x += (d1_actual.x < d2_actual.x) ? 1 : -1;
+			delta_error -= delta.y;
+			cur.x += (d1_actual.x < d2_actual.x) ? 1 : -1;
 		}
 		if (error < delta.y)
 		{
-			deltaError += delta.x;
-			current.y += (d1_actual.y < d2_actual.y) ? 1 : -1;
+			delta_error += delta.x;
+			cur.y += (d1_actual.y < d2_actual.y) ? 1 : -1;
 		}
 	}
 }
 
-void	connect_lines(t_mlx *mlx, t_img *img)
+void		bresenham_alg(t_mlx *mlx, t_point d1_actual, t_point d2_actual)
+{
+	t_point	delta;
+
+	d1_actual.x = WIDTH / 2 + d1_actual.x + d1_actual.x_shift;
+	d1_actual.y = HEIGHT / 2 - d1_actual.y - d1_actual.y_shift;
+	d2_actual.x = WIDTH / 2 + d2_actual.x + d2_actual.x_shift;
+	d2_actual.y = HEIGHT / 2 - d2_actual.y - d2_actual.y_shift;
+	delta.x = abs(d2_actual.x - d1_actual.x);
+	delta.y = abs(d2_actual.y - d1_actual.y);
+	bresenham_loop(delta, mlx, d1_actual, d2_actual);
+}
+
+void		connect_lines(t_mlx *mlx, t_img *img)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < img->grid_square)
-	{
-		rotate_x(&(mlx->img->point[i]), mlx->img->camera);
-		rotate_y(&(mlx->img->point[i]), mlx->img->camera);
-		rotate_z(&(mlx->img->point[i]), mlx->img->camera);
-		i++;
-	}
 	i = 0;
 	while (i < img->grid_height)
 	{
 		j = 0;
 		while (j < img->grid_width)
 		{
-			// horizontal
 			if (j < img->grid_width - 1)
-				bresenham_alg(mlx, img->point[i * img->grid_width + j], img->point[(i * img->grid_width + j) + 1]);
-			// vertical
+				bresenham_alg(mlx, img->point[i * img->grid_width + j],\
+									img->point[(i * img->grid_width + j) + 1]);
 			if (i < img->grid_height - 1)
-				bresenham_alg(mlx, img->point[i * img->grid_width + j], img->point[(i + 1) * img->grid_width + j]);
+				bresenham_alg(mlx, img->point[i * img->grid_width + j],\
+									img->point[(i + 1) * img->grid_width + j]);
 			j++;
 		}
 		i++;
