@@ -26,8 +26,9 @@
 # define RESOLUTION WIDTH * HEIGHT
 
 # define BASIC_ROTATION_STEP 0.02
-# define MAX_HEIGHT 50
-
+# define MAX_SHIFT_HEIGHT 50
+# define MAX_Z 100
+# define MAX_NUMBER_OF_COLORS 10
 
 # define MARGIN_Y (HEIGHT / 100 * 35)
 # define MARGIN_X (WIDTH / 100 * 35)
@@ -62,6 +63,7 @@
 # define GREEN_COLOR (0 << 16 | 255 << 8 | 0)
 # define BLUE_COLOR (0 << 16 | 0 << 8 | 255)
 # define RED_COLOR (255 << 16 | 97 << 8 | 97)
+# define WHITE_COLOR (255 << 16 | 255 << 8 | 255)
 
 # define NUMBER_OF_COLOR_PAIRS 4
 
@@ -71,7 +73,7 @@ typedef struct  s_point
 	int 	y;
 	int 	z;
 	int		z_shift;
-	long	color;
+	int		color;
 	int		bump;
 }				t_point;
 
@@ -84,11 +86,19 @@ typedef struct	s_cam
 	int		projection;
 }					t_cam;
 
+typedef struct s_color
+{
+	int			*relief_color_borders;
+	int			size;
+	int			base_color_index;
+}				t_color;
+
 typedef	struct	s_img
 {
 	t_point	*point;
 	t_point	*reset_point;
 	t_cam	*camera;
+	t_color *color;
 	int		grid_square;
 	int		grid_height;
 	int		grid_width;
@@ -121,6 +131,7 @@ t_colorpair		g_color_pair;
 
 t_img			*init_img();
 t_mlx			*init_mlx();
+t_color			*init_color(void);
 void			input_processing(char *str, t_img *img);
 int				validate_line(char *line);
 
@@ -128,6 +139,10 @@ void			set_rotation_step(t_img *img);
 
 int				get_color(t_point start, t_point end, t_point delta, t_point current);
 void        	change_color_pair(void);
+
+void			setting_color_parameters(t_img *img);
+int				*earth_color_set(t_color *color);
+void			apply_color_set(t_img *img, int *color_set);
 
 void    		check_image_front(t_cam *camera);
 double  		convert_degree(double degree);
@@ -147,4 +162,9 @@ void			rotate_figure(int key, t_mlx *mlx);
 
 double			ft_radian(double degree);
 void			reset(t_mlx *mlx);
+
+int				min_z(t_img *img);
+int				max_z(t_img *img);
+int				ft_ceil(double num);
+
 #endif

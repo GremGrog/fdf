@@ -20,6 +20,24 @@ void	set_rotation_step(t_img *img)
 		img->rotation_step /= 10.0;
 }
 
+t_color		*init_color(void)
+{
+	t_color	*color;
+
+	if ((color = (t_color *)malloc(sizeof(t_color))) == NULL)
+		return NULL;
+	color->relief_color_borders = (int *)malloc(sizeof(int) * MAX_NUMBER_OF_COLORS);
+	if (color->relief_color_borders == NULL)
+	{
+		free(color);
+		return NULL;
+	}
+	ft_bzero(color->relief_color_borders, MAX_NUMBER_OF_COLORS);
+	color->base_color_index = 0;
+	color->size = 0;
+	return color;
+}
+
 t_cam	*init_camera()
 {
 	t_cam	*cam;

@@ -56,7 +56,7 @@ int		add_coords(char *str, t_point **point, int line_num, int point_index)
 			(*point)[j].bump = 0;
 			if ((*point)[j].z != 0)
 				(*point)[j].bump = 1;
-			(*point)[j].color = 25343;
+			(*point)[j].color = 0;
 		}
 		i++;
 		j++;

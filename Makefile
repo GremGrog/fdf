@@ -38,7 +38,10 @@ SRCS = 	main.c \
 		isometry.c \
 		rotation.c \
 		color.c \
-		keys.c
+		color_sets.c \
+		color_settings.c \
+		tools.c \
+		keys.c 
 
 OBJF = $(addprefix $(DIR_O)/,$(patsubst %.c,%.o,$(SRCS)))
 
