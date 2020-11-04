@@ -33,7 +33,7 @@ int		read_input(char *str, t_img *img)
 	buf = NULL;
 	while (get_next_line(fd, &buf) > 0)
 	{
-		if (buf)
+		if (buf && ft_strlen(buf) > 0)
 		{
 			if ((point_index = parse_coords_in_line(buf, \
 					img->point, img->grid_height, point_index)) == -1)

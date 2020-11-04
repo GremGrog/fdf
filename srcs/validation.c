@@ -127,6 +127,8 @@ int		count_input_len(char *str, t_img *img)
 			return defer(fd, &buf);
 	}
 	defer(fd, &buf);
+	if (img->grid_square == 0)
+		return (-1);
 	set_rotation_step(img);
 	return (0);
 }

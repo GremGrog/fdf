@@ -26,7 +26,7 @@ t_color		*init_color(void)
 	}
 	ft_bzero(color->relief_color_borders, MAX_NUMBER_OF_COLORS);
 	color->base_color_index = 0;
-	color->size = 0;
+	color->size = 1;
 	return color;
 }
 

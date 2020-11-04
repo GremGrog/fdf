@@ -98,7 +98,8 @@ void        setting_parameters(t_mlx *mlx)
 	min = min_z(mlx->img);
 	most = most_frequent_z(mlx->img, min);
 	size = calculate_relief(mlx->img->color, max_z(mlx->img), min, most);
-	mlx->img->color->size = size;
+	if (size != 0)
+		mlx->img->color->size = size;
 	apply_color_set_first(mlx, earth_color_set(mlx->img->color));
 	set_bump(mlx->img, most);
 }

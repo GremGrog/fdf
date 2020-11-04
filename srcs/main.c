@@ -53,7 +53,10 @@ int		main(int argc, char **argv)
 	save_reset_point(mlx);
 	isometry(mlx->img);
 	accept_rotation_to_image(mlx);
-	connect_lines(mlx, mlx->img);
+	if (mlx->img->grid_square > 1)
+		connect_lines(mlx, mlx->img);
+	else if (mlx->img->grid_square == 1)
+		put_pixel(mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	mlx_hook(mlx->win_ptr, 2, 0, key_press, mlx);
 	mlx_hook(mlx->win_ptr, 17, 0, red_button, mlx);

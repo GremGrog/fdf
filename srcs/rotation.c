@@ -2,6 +2,8 @@
 
 void	set_rotation_step(t_img *img)
 {
+	if (img->grid_square < 100)
+		img->rotation_step *= 50.0;
 	if (img->grid_square > 1000)
 		img->rotation_step /= 10.0;
 	if (img->grid_square > 10000)

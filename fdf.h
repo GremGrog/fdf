@@ -188,5 +188,6 @@ int					count_input_len(char *str, t_img *img);
 int					parse_coords_in_line(char *str, t_point *point,\
 										int line_num, int point_index);
 void				freee(t_mlx **mlx);
+void				put_pixel(t_mlx *mlx);
 
 #endif

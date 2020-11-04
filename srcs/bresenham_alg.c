@@ -26,7 +26,7 @@ void		bresenham_loop(t_point delta, t_mlx *mlx,\
 	while (!(cur.x == d2_actual.x && cur.y == d2_actual.y))
 	{
 		if ((cur.y <= HEIGHT && cur.y >= 0) && (cur.x <= WIDTH && cur.x >= 0))
-			mlx->data[cur.y * WIDTH + cur.x] = \
+			mlx->data[cur.y * WIDTH + cur.x] =\
 					get_color(d1_actual, d2_actual, delta, cur);
 		error = delta_error;
 		if (error > -delta.x)
@@ -76,4 +76,14 @@ void		connect_lines(t_mlx *mlx, t_img *img)
 		}
 		i++;
 	}
+}
+
+void		put_pixel(t_mlx *mlx)
+{
+	int		x;
+	int		y;
+	
+	x = WIDTH / 2 + mlx->img->point[0].x + mlx->img->point[0].x_shift;
+	y = HEIGHT / 2 - mlx->img->point[0].y - mlx->img->point[0].y_shift;
+	mlx->data[y * WIDTH + x] = 255 | 255 | 1;
 }

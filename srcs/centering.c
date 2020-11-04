@@ -31,6 +31,13 @@ void	centering_loop(t_img *img, int cube_width, int cube_height)
 		{
 			img->point[i].x = start_x;
 			img->point[i].y = start_y;
+
+	// 	if (img->point[i].y > HEIGHT / 2) {
+	// 	for (int i = 0; i < img->grid_width; i++) {
+	// 		ft_printf("%d %d\n", img->point[i].x, img->point[i].y);
+	// 	}
+	// 	ft_printf("-----------------\n");
+	// }
 			start_x += cube_width;
 			j++;
 			i++;
