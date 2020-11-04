@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helpers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/04 14:37:50 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:38:11 by yquaro           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 double	ft_radian(double degree)
@@ -36,7 +48,8 @@ void	save_reset_point(t_mlx *mlx)
 	int		i;
 
 	i = 0;
-	mlx->img->reset_point = (t_point *)malloc((sizeof(t_point) * mlx->img->grid_square));
+	mlx->img->reset_point = (t_point *)malloc((sizeof(t_point) \
+		* mlx->img->grid_square));
 	if (mlx->img->reset_point == NULL)
 		terminate(&mlx);
 	while (i < mlx->img->grid_square)

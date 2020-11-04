@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 14:46:22 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/30 17:12:41 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:48:15 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,7 @@ static int	defer(int fd, char **buf)
 	return (-1);
 }
 
-int		in_hex(char c)
-{
-	if (ft_isdigit(c) == 1)
-		return (1);
-	if (c >= 'a' && c <= 'f')
-		return (1);
-	if (c >= 'A' && c <= 'F')
-		return (1);
-	return (0);
-}
-
-int		validate_color(char *line, int i)
+int			validate_color(char *line, int i)
 {
 	if (line[i] == '0')
 	{
@@ -51,15 +40,7 @@ int		validate_color(char *line, int i)
 	return (-1);
 }
 
-int	ft_isdigit_not_zero(int c)
-{
-	if (c >= '1' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
-int		validate_digit(char *line, int i)
+int			validate_digit(char *line, int i)
 {
 	if (line[i] == '0' && ft_isdigit(line[i + 1]) == 0)
 		return (++i);
@@ -77,17 +58,15 @@ int		validate_digit(char *line, int i)
 			return (-1);
 		else
 			return (i);
-				
 	}
 	if (ft_isalpha(line[i]) == 1)
 		return (-1);
 	return (-1);
 }
 
-
-int		validate_line(char *line)
+int			validate_line(char *line)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (line[i])
@@ -100,17 +79,14 @@ int		validate_line(char *line)
 	return (0);
 }
 
-int		count_input_len(char *str, t_img *img)
+int			count_input_len(char *str, t_img *img,\
+							char *buf, int first_line_points_num)
 {
 	int		fd;
-	char	*buf;
 	int		len;
-	int		first_line_points_num;
 
 	if ((fd = open(str, O_RDONLY)) < 0)
 		return (-1);
-	first_line_points_num = -1;
-	buf = NULL;
 	while (get_next_line(fd, &buf) > 0)
 	{
 		if (validate_line(buf) == 0 && (len = count_words(buf)) > 0)
@@ -124,7 +100,7 @@ int		count_input_len(char *str, t_img *img)
 			buf = NULL;
 		}
 		else
-			return defer(fd, &buf);
+			return (defer(fd, &buf));
 	}
 	defer(fd, &buf);
 	if (img->grid_square == 0)

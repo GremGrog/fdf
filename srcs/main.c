@@ -1,9 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/04 14:21:17 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:45:50 by yquaro           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	freee(t_mlx **mlx)
+void		set_rotation_step(t_img *img)
 {
-	ft_printf("freee\n");
+	if (img->grid_square < 100)
+		img->rotation_step *= 50.0;
+	if (img->grid_square > 1000)
+		img->rotation_step /= 10.0;
+	if (img->grid_square > 10000)
+		img->rotation_step /= 10.0;
+}
+
+void		freee(t_mlx **mlx)
+{
 	if (*mlx == NULL)
 		return ;
 	if ((*mlx)->img->point != NULL)
@@ -19,14 +39,13 @@ void	freee(t_mlx **mlx)
 	free((*mlx)->img_ptr);
 	free((*mlx)->win_ptr);
 	free((*mlx)->data);
-	free((*mlx)->ptr);	
+	free((*mlx)->ptr);
 	free((*mlx));
 	(*mlx) = NULL;
 }
 
-void	terminate(t_mlx **mlx)
+void		terminate(t_mlx **mlx)
 {
-	ft_printf("terminate\n");
 	freee(mlx);
 	*mlx = NULL;
 	ft_printf("Error\n");
@@ -39,7 +58,7 @@ static void	usage(void)
 	exit(1);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_mlx	*mlx;
 

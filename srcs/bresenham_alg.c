@@ -82,7 +82,7 @@ void		put_pixel(t_mlx *mlx)
 {
 	int		x;
 	int		y;
-	
+
 	x = WIDTH / 2 + mlx->img->point[0].x + mlx->img->point[0].x_shift;
 	y = HEIGHT / 2 - mlx->img->point[0].y - mlx->img->point[0].y_shift;
 	mlx->data[y * WIDTH + x] = 255 | 255 | 1;

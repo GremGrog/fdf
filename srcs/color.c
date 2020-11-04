@@ -1,4 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/04 14:21:13 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:24:48 by yquaro           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
+
+void			change_color_set(t_mlx *mlx)
+{
+	static int	i = 1;
+
+	if (i == 0)
+		apply_color_set(mlx, earth_color_set(mlx->img->color));
+	else if (i == 1)
+		apply_color_set(mlx, mars_color_set(mlx->img->color));
+	i = (i + 1) % NUMBER_OF_COLOR_SETS;
+}
 
 static double	percent(int start, int end, int current)
 {
@@ -15,12 +38,13 @@ static int		get_light(int start, int end, double percentage)
 	return ((int)((1 - percentage) * start + percentage * end));
 }
 
-int     get_color(t_point start, t_point end, t_point delta, t_point current)
+int				get_color(t_point start, t_point end, \
+					t_point delta, t_point current)
 {
-	int		red;
-	int		green;
-	int		blue;
-	double	percentage;
+	int			red;
+	int			green;
+	int			blue;
+	double		percentage;
 
 	if (delta.x > delta.y)
 		percentage = percent(start.x, end.x, current.x);

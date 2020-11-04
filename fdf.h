@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 16:02:25 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/25 19:01:48 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:50:17 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,8 @@
 
 # include <math.h>
 # include "mlx.h"
-// # include "/usr/X11/include/mlx.h"
-
-// # define WIDTH 1500
 
 # define WIDTH 1200
-
-// # define HEIGHT 1500
 # define HEIGHT 800
 # define WINDOW_NAME "fdf"
 # define RESOLUTION WIDTH * HEIGHT
@@ -75,103 +70,108 @@
 # define RED_COLOR (255 << 16 | 97 << 8 | 97)
 # define WHITE_COLOR (255 << 16 | 255 << 8 | 255)
 
-# define NUMBER_OF_COLOR_PAIRS 4
+# define NUMBER_OF_COLOR_SETS 2
 
 typedef struct		s_point
 {
-	int		x;
-	int		y;
-	int		z;
-	int		x_shift;
-	int		y_shift;
-	int		z_shift;
-	int		color;
-	int		bump;
+	int				x;
+	int				y;
+	int				z;
+	int				x_shift;
+	int				y_shift;
+	int				z_shift;
+	int				color;
+	int				bump;
 }					t_point;
 
 typedef struct		s_cam
 {
-	double	alpha;
-	double	beta;
-	double	gamma;
-	int		front;
-	int		projection;
+	double			alpha;
+	double			beta;
+	double			gamma;
+	int				front;
+	int				projection;
 }					t_cam;
 
-typedef struct s_color
+typedef struct		s_color
 {
-	int			*relief_color_borders;
-	int			size;
-	int			base_color_index;
-}				t_color;
+	int				*relief_color_borders;
+	int				size;
+	int				base_color_index;
+}					t_color;
 
-typedef	struct	s_img
+typedef	struct		s_img
 {
-	t_point	*point;
-	t_point	*reset_point;
-	t_cam	*camera;
-	t_color *color;
-	int		grid_square;
-	int		grid_height;
-	int		grid_width;
-	int		cube_width;
-	int		cube_height;
-	int		margin_x;
-	int		margin_y;
-	double	rotation_step;
+	t_point			*point;
+	t_point			*reset_point;
+	t_cam			*camera;
+	t_color			*color;
+	int				grid_square;
+	int				grid_height;
+	int				grid_width;
+	int				cube_width;
+	int				cube_height;
+	int				margin_x;
+	int				margin_y;
+	double			rotation_step;
 }					t_img;
 
 typedef struct		s_mlx
 {
-	t_img	*img;
-	void	*ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-	int		*data;
-	int		bbp;
-	int		size_line;
-	int		endian;
+	t_img			*img;
+	void			*ptr;
+	void			*win_ptr;
+	void			*img_ptr;
+	int				*data;
+	int				bbp;
+	int				size_line;
+	int				endian;
 }					t_mlx;
 
-t_img			*init_img();
-t_mlx			*init_mlx();
-t_color			*init_color(void);
+t_img				*init_img();
+t_mlx				*init_mlx();
+t_color				*init_color(void);
 
-void			terminate(t_mlx **mlx);
+void				terminate(t_mlx **mlx);
 
-int				input_processing(char *str, t_mlx *mlx);
-int				validate_line(char *line);
+int					input_processing(char *str, t_mlx *mlx);
+int					validate_line(char *line);
 
-void			set_rotation_step(t_img *img);
+void				set_rotation_step(t_img *img);
 
-int				get_color(t_point start, t_point end, t_point delta, t_point current);
+int					get_color(t_point start, t_point end, \
+						t_point delta, t_point current);
 
-void			setting_parameters(t_mlx *mlx);
-int				*earth_color_set(t_color *color);
-void			apply_color_set(t_img *img, int *color_set);
+void				setting_parameters(t_mlx *mlx);
+int					*earth_color_set(t_color *color);
+int					*mars_color_set(t_color *color);
+void				apply_color_set(t_mlx *mlx, int *color_set);
+void				change_color_set(t_mlx *mlx);
 
-void    		check_image_front(t_cam *camera);
-double  		convert_degree(double degree);
-int				key_press(int key, void *param);
-int				red_button(void *param);
+void				check_image_front(t_cam *camera);
+double				convert_degree(double degree);
+int					key_press(int key, void *param);
+int					red_button(void *param);
 
-void			centering(t_mlx *mlx);
-void			bresenham_alg(t_mlx *mlx, t_point d1, t_point d2);
-void			connect_lines(t_mlx *mlx, t_img *img);
+void				centering(t_mlx *mlx);
+void				bresenham_alg(t_mlx *mlx, t_point d1, t_point d2);
+void				connect_lines(t_mlx *mlx, t_img *img);
 
-void			rotate_x(t_point *d, t_cam *camera);
-void			rotate_y(t_point *d, t_cam *camera);
-void			rotate_z(t_point *d, t_cam *camera);
+void				rotate_x(t_point *d, t_cam *camera);
+void				rotate_y(t_point *d, t_cam *camera);
+void				rotate_z(t_point *d, t_cam *camera);
 
-void			isometry(t_img *img);
-void			rotate_figure(int key, t_mlx *mlx);
+void				isometry(t_img *img);
+void				rotate_figure(int key, t_mlx *mlx);
 
-double			ft_radian(double degree);
-void			reset(t_mlx *mlx);
+double				ft_radian(double degree);
+void				reset(t_mlx *mlx);
+int					in_hex(char c);
+int					ft_isdigit_not_zero(int c);
 
-int				min_z(t_img *img);
-int				max_z(t_img *img);
-int				ft_ceil(double num);
+int					min_z(t_img *img);
+int					max_z(t_img *img);
+int					ft_ceil(double num);
 void				reset_all(t_mlx *mlx);
 void				accept_rotation_to_image(t_mlx *mlx);
 void				save_reset_point(t_mlx *mlx);
@@ -184,7 +184,8 @@ int					find_upmost_point(t_img *img);
 int					find_lowest_point(t_img *img);
 int					find_leftmost_point(t_img *img);
 int					find_rightmost_point(t_img *img);
-int					count_input_len(char *str, t_img *img);
+int					count_input_len(char *str, t_img *img,\
+									char *buf, int first_line_points_num);
 int					parse_coords_in_line(char *str, t_point *point,\
 										int line_num, int point_index);
 void				freee(t_mlx **mlx);

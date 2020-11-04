@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color_settings.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/04 14:33:07 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:33:09 by yquaro           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 static int	most_frequent_z(t_img *img, int min)
 {
-	int		meeting[(MAX_Z * 2) + 1];
+	int		meeting[MAX_Z * 2 + 1];
 	int		abs_min_z;
 	int		most;
 	int		counter_max;
 	int		i;
 
-	ft_bzero(meeting, sizeof(int) * (MAX_Z * 2 + 1));
+	ft_bzero(meeting, (MAX_Z * 2 + 1));
 	abs_min_z = abs(min);
 	i = 0;
 	while (i < img->grid_square)
@@ -27,10 +39,10 @@ static int	most_frequent_z(t_img *img, int min)
 	return (most);
 }
 
-static void apply_color_set_first(t_mlx *mlx, int *color_set)
+static void	apply_color_set_first(t_mlx *mlx, int *color_set)
 {
-	int     i;
-	int     j;
+	int		i;
+	int		j;
 
 	if (color_set == NULL)
 		terminate(&mlx);
@@ -40,18 +52,19 @@ static void apply_color_set_first(t_mlx *mlx, int *color_set)
 		if (mlx->img->point[i].color != 0)
 			continue ;
 		j = 0;
-		while (j < mlx->img->color->size && mlx->img->point[i].z >= mlx->img->color->relief_color_borders[j])
+		while (j < mlx->img->color->size && mlx->img->point[i].z\
+			>= mlx->img->color->relief_color_borders[j])
 			mlx->img->point[i].color = color_set[j++];
 	}
 	free(color_set);
 	color_set = NULL;
 }
 
-static int  calculate_relief(t_color *color, int max, int min, int most)
+static int	calculate_relief(t_color *color, int max, int min, int most)
 {
-	int     step;
-	int     border;
-	int     j;
+	int		step;
+	int		border;
+	int		j;
 
 	step = ft_ceil((double)(max - min) / MAX_NUMBER_OF_COLORS);
 	border = min;
@@ -87,10 +100,10 @@ static void	set_bump(t_img *img, int most)
 	}
 }
 
-void        setting_parameters(t_mlx *mlx)
+void		setting_parameters(t_mlx *mlx)
 {
-	int     size;
-	int     most;
+	int		size;
+	int		most;
 	int		min;
 
 	if ((mlx->img->color = init_color()) == NULL)
