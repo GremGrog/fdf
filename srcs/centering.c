@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   centering.c                                 :+:      :+:    :+:   */
+/*   centering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/25 17:54:13 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/30 17:57:51 by fmasha-h         ###   ########.fr       */
+/*   Created: 2020/11/04 14:23:41 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:23:52 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	centering(t_mlx *mlx)
 	if (mlx->img->grid_width == 1)
 		mlx->img->cube_width = (WIDTH - mlx->img->margin_x * 2);
 	else
-		mlx->img->cube_width = (WIDTH - mlx->img->margin_x * 2) / (mlx->img->grid_width - 1);
+		mlx->img->cube_width = \
+			(WIDTH - mlx->img->margin_x * 2) / (mlx->img->grid_width - 1);
 	centering_loop(mlx->img, mlx->img->cube_width, mlx->img->cube_height);
 }

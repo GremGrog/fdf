@@ -1,12 +1,16 @@
-#include "../fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotation.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/04 14:42:57 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:43:17 by yquaro           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	set_rotation_step(t_img *img)
-{
-	if (img->grid_square > 1000)
-		img->rotation_step /= 10.0;
-	if (img->grid_square > 10000)
-		img->rotation_step /= 10.0;
-}
+#include "../fdf.h"
 
 void	rotate_x(t_point *d, t_cam *camera)
 {

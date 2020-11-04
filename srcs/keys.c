@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keys.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/04 14:42:33 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:45:43 by yquaro           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 void	handle_heigth_change(int key, t_mlx *mlx)
@@ -9,12 +21,13 @@ void	handle_heigth_change(int key, t_mlx *mlx)
 	{
 		if (mlx->img->point[i].bump)
 		{
-			if (key == R && mlx->img->point[i].z_shift <= MAX_SHIFT_HEIGHT) 
+			if (key == R && mlx->img->point[i].z_shift <= MAX_SHIFT_HEIGHT)
 			{
 				mlx->img->point[i].z++;
 				mlx->img->point[i].z_shift++;
 			}
-			else if (key == F && mlx->img->point[i].z_shift >= -MAX_SHIFT_HEIGHT)
+			else if (key == F && mlx->img->point[i].z_shift >= \
+				-MAX_SHIFT_HEIGHT)
 			{
 				mlx->img->point[i].z--;
 				mlx->img->point[i].z_shift--;

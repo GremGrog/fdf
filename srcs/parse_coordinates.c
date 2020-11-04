@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_coordinates.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/04 14:38:49 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:39:21 by yquaro           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../fdf.h"
 
-static int defer(char ***line)
+static int		defer(char ***line)
 {
 	if (*line != NULL)
 	{
@@ -12,11 +23,11 @@ static int defer(char ***line)
 	return (-1);
 }
 
-void	add_color(char *str, t_point *point)
+void			add_color(char *str, t_point *point)
 {
-	char	**arr;
-	char	*buf;
-	int		i;
+	char		**arr;
+	char		*buf;
+	int			i;
 
 	i = 0;
 	arr = ft_strsplit(str, ',');
@@ -32,7 +43,7 @@ void	add_color(char *str, t_point *point)
 	defer(&arr);
 }
 
-void	add_coordinate(t_point *point, int i, int line_num, char *line)
+void			add_coordinate(t_point *point, int i, int line_num, char *line)
 {
 	if (!line || line_num < 0 || i < 0)
 		return ;
@@ -49,15 +60,15 @@ void	add_coordinate(t_point *point, int i, int line_num, char *line)
 		point->z = ft_atoi(line);
 }
 
-int		check_z_height(t_point *point)
+int				check_z_height(t_point *point)
 {
 	if (abs(point->z) > MAX_Z)
 		return (-1);
 	return (0);
 }
 
-int		parse_coords_in_line(char *str, t_point *point,\
-			int line_num, int point_index)
+int				parse_coords_in_line(char *str, t_point *point, \
+					int line_num, int point_index)
 {
 	int		i;
 	int		j;

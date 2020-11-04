@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_new_img.c                                     :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 14:03:42 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/09/30 15:38:51 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:44:53 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-t_color		*init_color(void)
+t_color			*init_color(void)
 {
-	t_color	*color;
+	t_color		*color;
 
 	if ((color = (t_color *)malloc(sizeof(t_color))) == NULL)
-		return NULL;
-	color->relief_color_borders = (int *)malloc(sizeof(int) * MAX_NUMBER_OF_COLORS);
+		return (NULL);
+	color->relief_color_borders = (int *)malloc(sizeof(int) * \
+		MAX_NUMBER_OF_COLORS);
 	if (color->relief_color_borders == NULL)
 	{
 		free(color);
-		return NULL;
+		return (NULL);
 	}
 	ft_bzero(color->relief_color_borders, MAX_NUMBER_OF_COLORS);
 	color->base_color_index = 0;
 	color->size = 0;
-	return color;
+	return (color);
 }
 
-t_cam	*init_camera()
+t_cam			*init_camera(void)
 {
-	t_cam	*cam;
+	t_cam		*cam;
 
 	if (!(cam = (t_cam *)malloc(sizeof(t_cam))))
 		return (NULL);
@@ -44,9 +45,9 @@ t_cam	*init_camera()
 	return (cam);
 }
 
-t_img	*init_img(void)
+t_img			*init_img(void)
 {
-	t_img	*img;
+	t_img		*img;
 
 	if (!(img = (t_img *)malloc(sizeof(t_img))))
 		return (NULL);
@@ -68,9 +69,9 @@ t_img	*init_img(void)
 	return (img);
 }
 
-t_mlx	*init_mlx(void)
+t_mlx			*init_mlx(void)
 {
-	t_mlx	*mlx;
+	t_mlx		*mlx;
 
 	if (!(mlx = (t_mlx *)malloc(sizeof(t_mlx))))
 		return (NULL);

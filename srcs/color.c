@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/04 14:21:13 by yquaro            #+#    #+#             */
+/*   Updated: 2020/11/04 14:24:48 by yquaro           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 void			change_color_set(t_mlx *mlx)
@@ -26,12 +38,13 @@ static int		get_light(int start, int end, double percentage)
 	return ((int)((1 - percentage) * start + percentage * end));
 }
 
-int     get_color(t_point start, t_point end, t_point delta, t_point current)
+int				get_color(t_point start, t_point end, \
+					t_point delta, t_point current)
 {
-	int		red;
-	int		green;
-	int		blue;
-	double	percentage;
+	int			red;
+	int			green;
+	int			blue;
+	double		percentage;
 
 	if (delta.x > delta.y)
 		percentage = percent(start.x, end.x, current.x);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   input_processing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmasha-h <fmasha-h@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yquaro <yquaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:34:14 by fmasha-h          #+#    #+#             */
-/*   Updated: 2019/10/01 15:51:13 by fmasha-h         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:40:28 by yquaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static int defer(int fd, char **buf)
+static int		defer(int fd, char **buf)
 {
 	if (*buf != NULL)
 		free(*buf);
@@ -21,11 +21,11 @@ static int defer(int fd, char **buf)
 	return (-1);
 }
 
-int		read_input(char *str, t_img *img)
+int				read_input(char *str, t_img *img)
 {
-	int		fd;
-	char	*buf;
-	int		point_index;
+	int			fd;
+	char		*buf;
+	int			point_index;
 
 	point_index = 0;
 	fd = open(str, O_RDONLY);
@@ -46,13 +46,14 @@ int		read_input(char *str, t_img *img)
 	return (0);
 }
 
-int		input_processing(char *str, t_mlx *mlx)
+int				input_processing(char *str, t_mlx *mlx)
 {
 	int	flag;
 
 	if (count_input_len(str, mlx->img) < 0)
 		terminate(&mlx);
-	if (!(mlx->img->point = (t_point*)malloc(sizeof(t_point) * mlx->img->grid_square)))
+	if (!(mlx->img->point = (t_point*)malloc(sizeof(t_point) * \
+			mlx->img->grid_square)))
 		terminate(&mlx);
 	flag = read_input(str, mlx->img);
 	if (mlx->img->grid_square % mlx->img->grid_height != 0)
