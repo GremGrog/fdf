@@ -20,7 +20,7 @@ static int	most_frequent_z(t_img *img, int min)
 	int		counter_max;
 	int		i;
 
-	ft_bzero(meeting, (MAX_Z * 2 + 1));
+	ft_bzero(meeting, sizeof(int) * (MAX_Z * 2 + 1));
 	abs_min_z = abs(min);
 	i = 0;
 	while (i < img->grid_square)
