@@ -6,6 +6,35 @@
 #define MOUNTAIN_COLOR (220 << 16 | 120 << 8 | 0)
 #define SUPER_MOUNTAIN_COLOR (160 << 16 | 70 << 8 | 0)
 
+#define SET_MARS_COLOR(red, green) (red << 16 | green << 8 | 0)
+
+int			*mars_color_set(t_color *color)
+{
+	int *color_set;
+	int	i;
+	int red;
+	int green;
+
+	if ((color_set = (int *)malloc(sizeof(int) * MAX_NUMBER_OF_COLORS)) == NULL)
+		return NULL;
+	red = 230;
+	green = 100;
+	i = 0;
+	while (i < MAX_NUMBER_OF_COLORS)
+	{
+		if (color->base_color_index + i < MAX_NUMBER_OF_COLORS)
+			color_set[color->base_color_index + i] = \
+				((red < 0 || green < 0) ? SET_MARS_COLOR(0, 0) : SET_MARS_COLOR(red, green));
+		if (color->base_color_index - i >= 0)
+			color_set[color->base_color_index - i] = \
+				((red < 0 || green < 0) ? SET_MARS_COLOR(0, 0) : SET_MARS_COLOR(red, green));
+		red -= 10;
+		green -= 20;
+		i++;
+	}
+	return color_set;
+}
+
 int			*earth_color_set(t_color *color)
 {
 	int		i;
@@ -35,25 +64,27 @@ int			*earth_color_set(t_color *color)
 		color_set[i++] = SUPER_MOUNTAIN_COLOR;
 	while (i < color->size)
 		color_set[i++] = WHITE_COLOR;
-	return (int *)color_set;
+	return color_set;
 }
 
-void		apply_color_set(t_img *img, int *color_set)
+void		apply_color_set(t_mlx *mlx, int *color_set)
 {
 	size_t	i;
 	size_t	j;
 
-	// if (color_set == NULL)
-		// terminate(img);
+	if (color_set == NULL)
+		terminate(&mlx);
 	i = 0;
-	while (i < (size_t)img->grid_square)
+	while (i < (size_t)mlx->img->grid_square)
 	{
 		j = 0;
-		while (j < (size_t)img->color->size && img->point[i].z >= img->color->relief_color_borders[j])
+		while (j < (size_t)mlx->img->color->size && mlx->img->point[i].z >= mlx->img->color->relief_color_borders[j])
 		{
-			img->point[i].color = color_set[j];
+			mlx->img->point[i].color = color_set[j];
 			j++;
 		}
 		i++;
 	}
+	free(color_set);
+	color_set = NULL;
 }

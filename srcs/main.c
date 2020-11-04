@@ -3,7 +3,6 @@
 
 void	freee(t_mlx **mlx)
 {
-	ft_printf("freee\n");
 	if (*mlx == NULL)
 		return ;
 	if ((*mlx)->img->point != NULL)
@@ -26,7 +25,6 @@ void	freee(t_mlx **mlx)
 
 void	terminate(t_mlx **mlx)
 {
-	ft_printf("terminate\n");
 	freee(mlx);
 	*mlx = NULL;
 	ft_printf("Error\n");

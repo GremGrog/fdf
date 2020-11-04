@@ -75,7 +75,7 @@
 # define RED_COLOR (255 << 16 | 97 << 8 | 97)
 # define WHITE_COLOR (255 << 16 | 255 << 8 | 255)
 
-# define NUMBER_OF_COLOR_PAIRS 4
+# define NUMBER_OF_COLOR_SETS 2
 
 typedef struct		s_point
 {
@@ -148,7 +148,9 @@ int				get_color(t_point start, t_point end, t_point delta, t_point current);
 
 void			setting_parameters(t_mlx *mlx);
 int				*earth_color_set(t_color *color);
-void			apply_color_set(t_img *img, int *color_set);
+int				*mars_color_set(t_color *color);
+void			apply_color_set(t_mlx *mlx, int *color_set);
+void			change_color_set(t_mlx *mlx);
 
 void    		check_image_front(t_cam *camera);
 double  		convert_degree(double degree);

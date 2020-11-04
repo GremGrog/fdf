@@ -14,7 +14,6 @@
 
 static int defer(int fd, char **buf)
 {
-	ft_printf("defer input processing\n");
 	if (*buf != NULL)
 		free(*buf);
 	buf = NULL;

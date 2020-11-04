@@ -1,5 +1,16 @@
 #include "../fdf.h"
 
+void			change_color_set(t_mlx *mlx)
+{
+	static int	i = 1;
+
+	if (i == 0)
+		apply_color_set(mlx, earth_color_set(mlx->img->color));
+	else if (i == 1)
+		apply_color_set(mlx, mars_color_set(mlx->img->color));
+	i = (i + 1) % NUMBER_OF_COLOR_SETS;
+}
+
 static double	percent(int start, int end, int current)
 {
 	double placement;
